@@ -7,7 +7,7 @@
     "start": "bankai start",
     "build": "bankai build -O",
     "test": "standard && dependency-check . --unused --no-dev -i tachyons",
-    "deploy": "surge -d dist --domain choo.io"
+    "publish": "npm run build && surge -p ./dist -d choo.io"
   },
   "browserify": {
     "transform": [

@@ -34,11 +34,19 @@ function mainView () {
 }
 
 function Main () {
+  var prefix = css`
+    :host .c { letter-spacing: -0.25em }
+    :host .h { letter-spacing: -0.1em }
+    :host .o { letter-spacing: 0.05em }
+  `
   return html`
     <main class="cf pt3 pt4-m pt5-l ph3 ph4-m ph5-l mw9 center">
       <div class="fr w-100 w-80-l ttu">
-        <h1 class="f2 f1-l lh-title mt0 mb4 mb5-ns vhs-left">
-          Choo
+        <h1 class="f2 f1-l lh-title mt0 mb4 mb5-ns vhs-left ${prefix}">
+          <span class="c">C</span>
+          <span class="h">H</span>
+          <span class="o">O</span>
+          <span>O</span>
           <br class="dn db-ns">
           <span class="vhs-flicker vhs-delay-4">
             sturdy frontend framework
@@ -109,7 +117,7 @@ function Description () {
 function Principles () {
   var one = el('Minimal in every aspect', fs.readFileSync(path.join(__dirname, 'assets/minimal.txt'), 'utf8'))
   var two = el('No framework lock in', fs.readFileSync(path.join(__dirname, 'assets/frameworks.txt'), 'utf8'))
-  var three = el('Easy to pick up', fs.readFileSync(path.join(__dirname, 'assets/easy.txt'), 'utf8'))
+  var three = el('Easy to start with', fs.readFileSync(path.join(__dirname, 'assets/easy.txt'), 'utf8'))
 
   return html`
     <section class="tl pa4 pa5-l bg-lightest-blue navy">
@@ -145,10 +153,11 @@ function Usage () {
   var corps = [
     [ 'The Washington Post', 'https://www.washingtonpost.com/' ],
     [ 'Google', 'https://google.com' ],
-    ['The Freeman Lab', 'http://thefreemanlab.com/'],
-    [ 'The Dat Project', 'http://datproject.org/' ],
+    [ 'The Freeman Lab', 'http://thefreemanlab.com/' ],
+    [ 'Dat Project', 'http://datproject.org/' ],
     [ 'Folder Studio', 'http://folderstudio.com' ],
-    [ 'City of Philadelphia', 'https://beta.phila.gov/' ]
+    [ 'City of Philadelphia', 'https://beta.phila.gov/' ],
+    [ 'Variable', 'http://variable.io' ]
   ]
   return html`
     <section class="tl pa4 pa5-l bg-washed-green">
@@ -160,9 +169,14 @@ function Usage () {
           Choo has been used on projects and experiments by folks from a fair
           few groups.
         </p>
-        <section class="lh-copy mw7">
+        <section class="lh-copy mw9">
           <div class="cf">
           ${corps.map(el)}
+          <article class="fl w-100 w-50-m w-25-l pr4-l">
+            <h2 class="f5 f4-ns fw6 mb0 black">
+              You?
+            </h2>
+          </article>
           </div>
         </section>
       </div>
@@ -172,7 +186,7 @@ function Usage () {
     var title = tuple[0]
     var url = tuple[1]
     return html`
-      <article class="fl w-100 w-third-l pr4-l">
+      <article class="fl w-100 w-50-m w-25-l pr4-l">
         <a href=${url} class="link">
           <h2 class="f5 f4-ns fw6 mb0 dim black">
             ${title}
