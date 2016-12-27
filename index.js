@@ -148,7 +148,7 @@ function Usage () {
     ['The Freeman Lab', 'http://thefreemanlab.com/'],
     [ 'The Dat Project', 'http://datproject.org/' ],
     [ 'Folder Studio', 'http://folderstudio.com' ],
-    [ 'City of Philadelphia', 'http://www.phila.gov/' ]
+    [ 'City of Philadelphia', 'https://beta.phila.gov/' ]
   ]
   return html`
     <section class="tl pa4 pa5-l bg-washed-green">
