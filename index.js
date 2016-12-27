@@ -164,7 +164,8 @@ function Usage () {
     [ 'Folder Studio', 'http://folderstudio.com' ],
     [ 'City of Philadelphia', 'https://beta.phila.gov/' ],
     [ 'Variable', 'http://variable.io' ],
-    [ 'ABC Australia', 'http://www.abc.net.au/' ]
+    [ 'ABC Australia', 'http://www.abc.net.au/' ],
+    [ 'Littlstar', 'https://littlstar.com/' ]
   ]
   return html`
     <section class="tl pa4 pa5-l bg-washed-green">
