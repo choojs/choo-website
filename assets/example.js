@@ -10,7 +10,7 @@ function mainView (state, emit) {
   return html`
     <body>
       <h1>Title: ${state.title}</h1>
-      <input type="text" oninput=${update}>
+      <input type="text" value="${state.title}" oninput=${update}>
     </body>
   `
 
