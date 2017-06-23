@@ -1,11 +1,22 @@
 var jsSyntax = require('highlight-syntax/js')
 var Highlight = require('highlight-syntax')
+var nanobeacon = require('nanobeacon')
 var mount = require('choo/mount')
 var html = require('choo/html')
 var css = require('sheetify')
 var choo = require('choo')
 var path = require('path')
 var fs = require('fs')
+
+if (typeof window === 'object') {
+  window.addEventListener('DOMContentLoaded', function () {
+    nanobeacon('https://analytics.choo.io', { type: 'load' })
+  }, false)
+
+  window.addEventListener('unload', function () {
+    nanobeacon('https://analytics.choo.io', { type: 'unload' })
+  }, false)
+}
 
 var highlight = Highlight([ jsSyntax ])
 
