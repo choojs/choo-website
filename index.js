@@ -40,7 +40,7 @@ function Main () {
   return html`
     <main class="cf pt4 pt5-l ph4 ph5-l mw9 center">
       ${Logo('sturdy frontend framework')}
-      <div class="f5 lh-copy fl w-100 vhs-fade vhs-delay-5">
+      <div class="f5 lh-copy fl w-100 vhs-top vhs-delay-5">
         ${tiny('tiny API')}
         ${tiny('performs well')}
         ${tiny('4kb in size')}
@@ -78,7 +78,7 @@ function Example () {
     }</code></pre>
   `
   return html`
-    <article class="cf ph4 ph5-l pv5 vhs-fade vhs-delay-5">
+    <article class="cf ph4 ph5-l pv5 vhs-top vhs-delay-5">
       <header class="fn fl-l w-40-l pr4-l">
         <h1 class="f2 lh-title fw9 mb3 mt0 pt3 bt bw2">
           Input field example
@@ -100,7 +100,7 @@ function Example () {
 
 function Description () {
   return html`
-    <section class="cf pt4 pb0 pb4-ns pt5-l ph4 ph7-l mh4-l mw9 center vhs-fade vhs-delay-5">
+    <section class="cf pt4 pb0 pb4-ns pt5-l ph4 ph7-l mh4-l mw9 center vhs-top vhs-delay-5">
       <p class="f4 db mv0 lh-copy">
         ${fs.readFileSync(path.join(__dirname, 'assets/intro.txt'), 'utf8')}
       </p>
