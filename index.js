@@ -154,7 +154,8 @@ function Usage () {
     [ 'Variable', 'http://variable.io' ],
     [ 'ABC Australia', 'http://www.abc.net.au/' ],
     [ 'Littlstar', 'https://littlstar.com/' ],
-    [ 'Greenkeeper', 'https://greenkeeper.io/' ]
+    [ 'Greenkeeper', 'https://greenkeeper.io/' ],
+    [ 'Blue Link Labs', 'https://beakerbrowser.com/' ]
   ]
   return html`
     <section class="tl ph4 ph5-l pv5 bg-washed-green">
