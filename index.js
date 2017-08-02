@@ -214,7 +214,7 @@ function Start () {
               <h2 class="f6 f5-ns fw6 mv0 black lh-solid">
                 Learn choo step by step
               </h2>
-              <a class="ba no-underline br1 black-80 bg-washed-blue grow b inline-flex items-center mr3 mv3 pv2 ph3" href="https://github.com/yoshuawuyts/choo-handbook">
+              <a class="ba no-underline br1 black-80 bg-washed-blue grow b inline-flex items-center mr3 mv3 pv2 ph3" href="https://github.com/choojs/choo-handbook">
                 Read the handbook
               </a>
             </article>
@@ -279,10 +279,10 @@ function Footer () {
   return html`
     <footer class="bg-white ph4 ph5-l pb4 pt4 pt5-l">
       <div class="f5 lh-copy fl w-100">
-        ${link('Read the handbook', 'https://github.com/yoshuawuyts/choo-handbook')}
-        ${link('Choo on GitHub', 'https://github.com/yoshuawuyts/choo')}
+        ${link('Read the handbook', 'https://github.com/choojs/choo-handbook')}
+        ${link('Choo on GitHub', 'https://github.com/choojs/choo')}
         ${link("Here's a twitter", 'https://twitter.com/yoshuawuyts')}
-        ${link('View source', 'https://github.com/yoshuawuyts/choo-website')}
+        ${link('View source', 'https://github.com/choojs/choo-website')}
       </div>
       <p class="b pt6 pt5-l cf lh-copy">
         <span class="fl-m">Made with 🚂 in Saigon, Tokyo, Berlin</span>
