@@ -22,7 +22,7 @@ else module.exports = app
 
 function mainView () {
   return html`
-    <body class=${bodyStyles}>
+    <body class="${bodyStyles} sans-serif">
       ${toHtml(fs.readFileSync(path.join(__dirname, 'sprite.svg'), 'utf8'))}
       ${Main()}
       ${Description()}
