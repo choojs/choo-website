@@ -1,4 +1,4 @@
-Choo is a framework for folks like you and me. Perhaps you're most comfortable
-writing HTML and CSS, and want to add some JavaScript. Or perhaps you're an
-industry veteran that wants to create reusable browser elements. Or maybe
-you're neither; Choo's got you tho ✌️.
+Choo is a framework for folks like you & me. Perhaps you're most comfortable
+writing HTML & CSS and just need a little JavaScript. Perhaps you're an
+industry veteran who wants to create reusable browser elements. Maybe
+you're neither; Choo's got you too ✌️.
