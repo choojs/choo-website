@@ -24,7 +24,7 @@ css('tachyons')
 css('vhs/css/vhs.css')
 css('highlight-syntax-pastel')
 var bodyStyles = css`:host { background-color: #ffc0cb }`
-var heroStyles = css`:host { background: linear-gradient(to top, #fff, #ee9ca7) }`
+var heroStyles = css`:host { background: linear-gradient(to top, #fff 50%, #ffc0cb) }`
 
 var app = choo()
 app.use(log())
