@@ -1,10 +1,10 @@
 var jsSyntax = require('highlight-syntax/js')
 var Highlight = require('highlight-syntax')
 var nanobeacon = require('nanobeacon')
-var mount = require('choo/mount')
 var html = require('choo/html')
 var css = require('sheetify')
 var choo = require('choo')
+var log = require('choo-log')
 var path = require('path')
 var fs = require('fs')
 
@@ -24,11 +24,13 @@ css('tachyons')
 css('vhs/css/vhs.css')
 css('highlight-syntax-pastel')
 var bodyStyles = css`:host { background-color: #ffc0cb }`
+var heroStyles = css`:host { background: linear-gradient(to top, #fff, #ee9ca7) }`
 
 var app = choo()
-app.router([ '/', mainView ])
+app.use(log())
+app.route('/', mainView)
 
-if (!module.parent) mount('body', app.start())
+if (!module.parent) app.mount('body')
 else module.exports = app
 
 function mainView () {
@@ -36,8 +38,6 @@ function mainView () {
     <body class="${bodyStyles} sans-serif">
       ${toHtml(fs.readFileSync(path.join(__dirname, 'sprite.svg'), 'utf8'))}
       ${Main()}
-      ${Description()}
-      ${Example()}
       ${Principles()}
       ${Usage()}
       ${Start()}
@@ -49,20 +49,22 @@ function mainView () {
 
 function Main () {
   return html`
-    <main class="cf pt4 pt5-l ph4 ph5-l mw9 center">
+    <main class="${heroStyles} cf pt4 pt5-l ph4 ph5-l center tc">
       ${Logo('sturdy frontend framework')}
-      <div class="f5 lh-copy fl w-100 vhs-top vhs-delay-5">
+      <div class="f5 lh-copy vhs-top vhs-delay-5 center">
         ${tiny('tiny API')}
         ${tiny('performs well')}
         ${tiny('4kb in size')}
         ${tiny('v impressive')}
       </div>
+      ${Description()}
+      ${Example()}
     </main>
   `
 
   function tiny (text) {
     return html`
-      <div class="fl-ns w-100 w-20-l pr3-m pr4-l">
+      <div class="dib-ns ph4-ns">
         ${text}
       </div>
     `
@@ -84,12 +86,12 @@ function Example () {
     }
   `
   var code = html`
-    <pre class="lh-copy measure-wide-l mt0-ns db bg-dark-gray pa4 mv0 f6 f5-l overflow-auto"><code>${
+    <pre class="lh-copy mt0-ns db bg-dark-gray pa4 mv0 f6 f5-l overflow-auto"><code>${
       toHtml(highlight(fs.readFileSync(path.join(__dirname, 'assets/example.js'), 'utf8'), { lang: 'js' }))
     }</code></pre>
   `
   return html`
-    <article class="cf ph4 ph5-l pv5 vhs-top vhs-delay-5">
+    <div class="mw9 center cf tl pv5 vhs-top vhs-delay-5">
       <header class="fn fl-l w-40-l pr4-l">
         <h1 class="f2 lh-title fw9 mb3 mt0 pt3 bt bw2">
           Input field example
@@ -105,14 +107,14 @@ function Example () {
       <div class="fn fl-l w-60-l mt5 mt0-l ${codeMargin}">
         ${code}
       </div>
-    </article>
+    </div>
   `
 }
 
 function Description () {
   return html`
-    <section class="cf pt4 pb0 pb4-ns pt5-l ph4 ph7-l mh4-l mw9 center vhs-top vhs-delay-5">
-      <p class="f4 db mv0 lh-copy">
+    <section class="pt4 pb0 pb4-ns pt5-l mw7 center vhs-top vhs-delay-5">
+      <p class="f4 db mv0 lh-copy tl">
         ${fs.readFileSync(path.join(__dirname, 'assets/intro.txt'), 'utf8')}
       </p>
     </section>
@@ -209,36 +211,38 @@ function Usage () {
 function Start () {
   return html`
     <article class="cf ph4 ph5-l pv5">
-      <header class="fn fl-l w-40-l pr4-l">
-        <h1 class="f2 lh-title fw9 mb3 mt0 pt3 bt bw2">
-          Getting started
-        </h1>
-        <h2 class="f3 black-70 lh-title">
-          Getting started with Choo shouldn't be hard, so we've included some
-          options.
-        </h2>
-      </header>
-      <div class="fn fl-l w-60-l mt4 mt0-l">
-        <section class="lh-copy mw9">
-          <div class="cf">
-            <article class="fl w-100 pr4-l">
-              <h2 class="f6 f5-ns fw6 mv0 black lh-solid">
-                Learn choo step by step
-              </h2>
-              <a class="ba no-underline br1 black-80 bg-washed-blue grow b inline-flex items-center mr3 mv3 pv2 ph3" href="https://github.com/choojs/choo-handbook">
-                Read the handbook
-              </a>
-            </article>
-            <article class="fl w-100 pr4-l mt3">
-              <h2 class="f6 f5-ns fw6 mv0 black">
-                Install from npm
-              </h2>
-              <pre class="pre black-70 overflow-auto"><code class="code f6 dib pv2 ph3 w-100 bg-black-70 washed-green">${
-                '$ npm install choo'
-              }</code></pre>
-            </article>
-          </div>
-        </section>
+      <div class="mw9 center">
+        <header class="fn fl-l w-40-l pr4-l">
+          <h1 class="f2 lh-title fw9 mb3 mt0 pt3 bt bw2">
+            Getting started
+          </h1>
+          <h2 class="f3 black-70 lh-title">
+            Getting started with Choo shouldn't be hard, so we've included some
+            options.
+          </h2>
+        </header>
+        <div class="fn fl-l w-60-l mt4 mt0-l">
+          <section class="lh-copy mw9">
+            <div class="cf">
+              <article class="fl w-100 pr4-l">
+                <h2 class="f6 f5-ns fw6 mv0 black lh-solid">
+                  Learn choo step by step
+                </h2>
+                <a class="ba no-underline br1 black-80 bg-washed-blue grow b inline-flex items-center mr3 mv3 pv2 ph3" href="https://github.com/choojs/choo-handbook">
+                  Read the handbook
+                </a>
+              </article>
+              <article class="fl w-100 pr4-l mt3">
+                <h2 class="f6 f5-ns fw6 mv0 black">
+                  Install from npm
+                </h2>
+                <pre class="pre black-70 overflow-auto"><code class="code f6 dib pv2 ph3 w-100 bg-black-70 washed-green">${
+                  '$ npm install choo'
+                }</code></pre>
+              </article>
+            </div>
+          </section>
+        </div>
       </div>
     </section>
   `
@@ -256,17 +260,19 @@ function Sponsors () {
   ]
   return html`
     <article class="cf tl ph4 ph5-l pv5 bg-lightest-blue">
-      <section class="fn fl-l w-100 w-40-l pr4-l">
-        <h2 class="f3 f1-ns lh-title fw9 mb3 mt0 pt3 bt bw2">
-          We're supported by some fine folk
-        </h2>
-        <a href="https://opencollective.com/choo"
-          class="f5 f4-ns ba no-underline br1 black-80 bg-washed-blue grow b inline-flex items-center mr3 mv3 pv2 ph3">
-          Support the community 🙏
-        </a>
-      </section>
-      <div class="fl w-100 w-60-l pa3-l mt0-l">
-        ${corps.map(el)}
+      <div class="mw9 center">
+        <section class="fn fl-l w-100 w-40-l pr4-l">
+          <h2 class="f3 f1-ns lh-title fw9 mb3 mt0 pt3 bt bw2">
+            We're supported by some fine folk
+          </h2>
+          <a href="https://opencollective.com/choo"
+            class="f5 f4-ns ba no-underline br1 black-80 bg-washed-blue grow b inline-flex items-center mr3 mv3 pv2 ph3">
+            Support the community 🙏
+          </a>
+        </section>
+        <div class="fl w-100 w-60-l pa3-l mt0-l">
+          ${corps.map(el)}
+        </div>
       </div>
     </article>
   `
@@ -290,15 +296,17 @@ function Footer () {
   return html`
     <footer class="bg-white ph4 ph5-l pb4 pt4 pt5-l">
       <div class="f5 lh-copy fl w-100">
-        ${link('Read the handbook', 'https://github.com/choojs/choo-handbook')}
-        ${link('Choo on GitHub', 'https://github.com/choojs/choo')}
-        ${link("Here's a twitter", 'https://twitter.com/yoshuawuyts')}
-        ${link('View source', 'https://github.com/choojs/choo-website')}
+        ${link('📜 Read the handbook', 'https://github.com/choojs/choo-handbook')}
+        ${link('🐈 Choo on GitHub', 'https://github.com/choojs/choo')}
+        ${link("🐦 Here's a twitter", 'https://twitter.com/yoshuawuyts')}
+        ${link('🔎 View source', 'https://github.com/choojs/choo-website')}
       </div>
       <p class="b pt6 pt5-l cf lh-copy">
         <span class="fl-m">Made with 🚂 in Saigon, Tokyo, Berlin</span>
         <br class="db dn-m">
-        <span class="fr-m">By Yosh & friends</span>
+        <span class="fr-m">
+          By <a class="black link dim b" href="https://github.com/choojs">Yosh & friends</a>
+        </span>
       </p>
     </footer>
   `
@@ -329,20 +337,18 @@ function Logo (text) {
     @media screen and (min-width: 30em) {
       :host .c { letter-spacing: -0.25em }
       :host .h { letter-spacing: -0.1em }
-      :host .o { letter-spacing: 0.05em }
+      :host .o { letter-spacing: -0.05em }
     }
   `
   return html`
-  <div class="fr w-100 w-80-l ttu">
-    <h1 class="f2 f1-l lh-title mt0 mb4 mb5-ns vhs-left ${prefix}">
-      <span class="c">C</span>
-      <span class="h">H</span>
-      <span class="o">O</span>
-      <span>O</span>
-      <br class="dn db-ns">
-      <span class="vhs-fade vhs-delay-4">
-        ${text}
-      </span>
+  <div class="dib center mb4 mb5-ns">
+    <h1 class="f2 f1-l lh-title ma0 vhs-left ${prefix}">
+      choo
+      <div class="pl3 dib vhs-right vhs-delay-3">🚂🚋🚋🚋</div>
     </h1>
+    <h2 class="f2-l dib vhs-bottom vhs-delay-4 ttu ma0">
+      ${text}
+    </h2>
+  </div>
   `
 }
