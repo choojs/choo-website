@@ -8,10 +8,10 @@ app.mount('body')
 
 function mainView (state, emit) {
   return html`
-    <body>
+    <div>
       <h1>Title: ${state.title}</h1>
-      <input type="text" value="${state.title}" oninput=${update}>
-    </body>
+      <input type="text" value="${state.title}" oninput=${update} />
+    </div>
   `
 
   function update (e) {
