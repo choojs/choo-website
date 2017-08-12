@@ -334,12 +334,12 @@ function Logo (text) {
   var prefix = css`
     :host .c,
     :host .h,
-    :host .o { letter-spacing: -0.25em }
+    :host .o { letter-spacing: -0.05em }
 
     @media screen and (min-width: 30em) {
-      :host .c { letter-spacing: -0.25em }
-      :host .h { letter-spacing: -0.1em }
-      :host .o { letter-spacing: 0.05em }
+      :host .c { letter-spacing: -0.05em }
+      :host .h { letter-spacing: 0.05em }
+      :host .o { letter-spacing: 0.15em }
     }
   `
   return html`
@@ -348,7 +348,7 @@ function Logo (text) {
       <span className="c">c</span>
       <span className="h">h</span>
       <span className="o">o</span>
-      o
+      <span>o</span>
       <div class="pl3 dib vhs-right vhs-delay-3">🚂🚋🚋🚋</div>
     </h1>
     <h2 class="f2-l dib vhs-bottom vhs-delay-4 ttu ma0">
