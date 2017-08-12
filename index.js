@@ -295,19 +295,21 @@ function Sponsors () {
 function Footer () {
   return html`
     <footer class="bg-white ph4 ph5-l pb4 pt4 pt5-l">
-      <div class="f5 lh-copy fl w-100">
-        ${link('📖 Read the handbook', 'https://github.com/choojs/choo-handbook')}
-        ${link('🐈 Choo on GitHub', 'https://github.com/choojs/choo')}
-        ${link("🐦 Here's a twitter", 'https://twitter.com/yoshuawuyts')}
-        ${link('🔎 View source', 'https://github.com/choojs/choo-website')}
+      <div class="mw9 center">
+        <div class="f5 lh-copy fl w-100">
+          ${link('📖 Read the handbook', 'https://github.com/choojs/choo-handbook')}
+          ${link('🐈 Choo on GitHub', 'https://github.com/choojs/choo')}
+          ${link("🐦 Here's a twitter", 'https://twitter.com/yoshuawuyts')}
+          ${link('🔎 View source', 'https://github.com/choojs/choo-website')}
+        </div>
+        <p class="b pt6 pt5-l cf lh-copy">
+          <span class="fl-m">Made with 🚂 in Saigon, Tokyo, Berlin</span>
+          <br class="db dn-m">
+          <span class="fr-m">
+            By <a class="black link dim b" href="https://github.com/choojs">Yosh & friends</a>
+          </span>
+        </p>
       </div>
-      <p class="b pt6 pt5-l cf lh-copy">
-        <span class="fl-m">Made with 🚂 in Saigon, Tokyo, Berlin</span>
-        <br class="db dn-m">
-        <span class="fr-m">
-          By <a class="black link dim b" href="https://github.com/choojs">Yosh & friends</a>
-        </span>
-      </p>
     </footer>
   `
 
