@@ -229,7 +229,7 @@ function Start () {
                   Learn choo step by step
                 </h2>
                 <a class="ba no-underline br1 black-80 bg-washed-blue grow b inline-flex items-center mr3 mv3 pv2 ph3" href="https://github.com/choojs/choo-handbook">
-                  Read the handbook
+                  Read the handbook 📖
                 </a>
               </article>
               <article class="fl w-100 pr4-l mt3">
@@ -296,7 +296,7 @@ function Footer () {
   return html`
     <footer class="bg-white ph4 ph5-l pb4 pt4 pt5-l">
       <div class="f5 lh-copy fl w-100">
-        ${link('📜 Read the handbook', 'https://github.com/choojs/choo-handbook')}
+        ${link('📖 Read the handbook', 'https://github.com/choojs/choo-handbook')}
         ${link('🐈 Choo on GitHub', 'https://github.com/choojs/choo')}
         ${link("🐦 Here's a twitter", 'https://twitter.com/yoshuawuyts')}
         ${link('🔎 View source', 'https://github.com/choojs/choo-website')}
@@ -337,13 +337,16 @@ function Logo (text) {
     @media screen and (min-width: 30em) {
       :host .c { letter-spacing: -0.25em }
       :host .h { letter-spacing: -0.1em }
-      :host .o { letter-spacing: -0.05em }
+      :host .o { letter-spacing: 0.05em }
     }
   `
   return html`
   <div class="dib center mb4 mb5-ns">
     <h1 class="f2 f1-l lh-title ma0 vhs-left ${prefix}">
-      choo
+      <span className="c">c</span>
+      <span className="h">h</span>
+      <span className="o">o</span>
+      o
       <div class="pl3 dib vhs-right vhs-delay-3">🚂🚋🚋🚋</div>
     </h1>
     <h2 class="f2-l dib vhs-bottom vhs-delay-4 ttu ma0">
