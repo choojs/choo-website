@@ -7,8 +7,7 @@
     "start": "bankai -dV",
     "build": "bankai build -O && node scripts/build.js",
     "build-icons": "svgo -f assets && spritesh --input assets --output sprite.svg --viewbox '0 0 267 79' --prefix icon-",
-    "test": "standard",
-    "publish": "git push && npm run build && surge -p ./dist -d choo.io"
+    "test": "standard"
   },
   "browserify": {
     "transform": [
@@ -35,7 +34,6 @@
     "purify-css": "^1.1.9",
     "spritesh": "^1.2.0",
     "standard": "^8.6.0",
-    "surge": "^0.18.0",
     "svgo": "^0.7.1"
   }
 }
