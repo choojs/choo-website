@@ -157,7 +157,7 @@ app.use((state, emitter) => {                  // 4.
 5. We'll need to store two values: the username, and whether or not we're
    logged in.
 6. When `user:login` is called, we set the username and set us as logged in.
-7. When `usser:logout` is called, we reset all values and log us back out.
+7. When `user:logout` is called, we reset all values and log us back out.
 
 ## Hardening event emitters
 Choo's event emitter is modeled after Node.js's `require('events')`. This is
