@@ -275,3 +275,38 @@ app.use((state, emitter) => {
   })
 })
 ```
+
+## Writing Plugins
+Sometimes it can be useful to extends Choo's functionality. For example in
+`choo-devtools` we can trace each mutation in the state, and output a stack
+trace. This requires access to the application itself. This is possible by a
+third argument that's passed to stores: `app`.
+
+Plugins are a specialized type of store. They're usually small wrappers around
+the DOM API, and expose events on the event emitter. Or they somehow interact
+with the application instance, and are used during development.
+
+It can be useful to create reusable plugins, and publish them to npm. At the
+time of writing there's plugins available on npm for service workers,
+debugging, networking, text-to-speech and more.
+
+```js
+var choo = require('choo')
+var app = choo()
+
+app.use(log)                                    // 1.
+
+function log (state, emitter, app) {            // 2.
+  emitter.on('*', (eventname, data) => {        // 3.
+    console.log('info: ' + eventname, data)
+  })
+}
+```
+
+1. We're using the `log` plugin here. Usually we would require the plugin from
+   npm instead.
+2. We create a new store. Because this is for debuggin purposes only, it's more
+   of a plugin. Notice that we're exposing a third argument: `app`. These are
+   available in all stores, but should probably only ever be used in plugins.
+3. This is some example logic. Whenever any event is emitted on the event
+   emitter, we log out the eventname and data.
