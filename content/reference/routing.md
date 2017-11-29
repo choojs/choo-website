@@ -43,8 +43,9 @@ function view () {                 // 4.
 2. We're going to add a view on the `'/` route. This means that if people
    navigate to `oursite.com`, this will be the route that is enabled.
 3. Now that we have our view, we can start rendering our application.
-4. We declare our view at the bottom of the page. Thanks to "Scope Hoisting",
-   we can use it higher in the code. For now it doesn't really matter what's in
+4. We declare our view at the bottom of the page. Thanks to [scope
+   hoisting](https://developer.mozilla.org/en-US/docs/Glossary/Hoisting), we
+   can use it higher in the code. For now it doesn't really matter what's in
    here, just that we return some DOM node.
 
 ## Anchor tags
@@ -118,7 +119,7 @@ function view () {
   `
 }
 
-function not found () {
+function notFound () {
   return html`
     <body>
       <a href="/">
@@ -178,9 +179,11 @@ available, and easy to traverse. However, they can't cover cases where the
 amount of slashes in route will be unknown.
 
 Take for example GitHub's code view. To navigate to Choo's `html/raw` API, the
-route is: https://github.com/choojs/choo/blob/master/html/raw.js. In this case,
-everything after `master/` is unknown. The depth and names of the route
-segments depend entirely on the project itself. This is what wildcards are for.
+route is:
+[github.com/choojs/choo/blob/master/html/raw.js](https://github.com/choojs/choo/blob/master/html/raw.js) .
+In this case, all parts of the route after `master/` are unknown. This means
+that `params` can't match the route correctly, because there's an unknown
+amount of slashes after `master/`. This is what wildcards are for.
 
 If we were building GitHub's code view with Choo, we could express the route
 as: `/:user/:repo/blob/:branch/*`. The value of `state.params.wildcard` would
