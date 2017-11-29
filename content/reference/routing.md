@@ -132,6 +132,7 @@ function not found () {
    helps with debugging, and is often treated specially when deploying to
    production.
 3. We define our fallback route as `*`. The asterix symbol is pronounced
-   "glob". Our glob route will now handle all routes that didn't anything.
+   "glob". Our glob route will now handle all routes that didn't match
+   anything.
 4. We mount the application on the DOM. If someone now clicks the link that's
    rendered in `/`, it will be handled by the fallback route.
