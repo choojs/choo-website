@@ -98,7 +98,11 @@ document.body.appendChild(element)
 To handle user input, views can attach event listeners onto the DOM. These
 listeners can in turn emit events on the event bus. To make sure that the
 application's flow is easy to reason about, views cannot attach listeners on
-the event bus themselves.
+the event bus themselves. This is where "data down, events up" becomes
+visible in the code: the view only has access to `emit()`, while anything that is
+declared through `app.use()`, such as a store, has access to the whole event bus 
+throught `emitter`. This can both send events with `emitter.emit()`, as well as
+receive them with `emitter.on()`.
 
 There are many events available on DOM elements, and most are available as
 attributes on DOM elements. For example form submissions can be detected by
