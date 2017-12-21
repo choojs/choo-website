@@ -211,3 +211,25 @@ There are generally two approaches to this: hard redirects, and soft redirects.
 It's generally recommended to use soft redirects, as they interfere the least
 with the browser, and allow users to recover from an error (e.g. fix typos in a
 url).
+
+### Navigating to External Links
+Some links in your app will point to other pages. In order to do this safely,
+we must add some attributes to our link tags. This is needed, so the pages we
+link to can't hijack our page.
+
+In order to link to an external link, we must do one of the following:
+- the click event had `.preventDefault()` called on it
+- the link has a `target="_blank"` attribute with `rel="noopener noreferrer"`
+- a modifier key is enabled (e.g. `ctrl`, `alt`, `shift` or `meta`)
+- the link's href starts with protocol handler such as `mailto:` or `dat:`
+- the link points to a different host
+- the link has a `download` attribute
+
+```js
+var html = require('choo/html')
+html`
+  <a href="other.site.com/something" target=_blank rel="noopener noreferrer">
+    Click to open in another page
+  </a>
+`
+```
