@@ -373,3 +373,25 @@ var app = choo({ history: false }) // 1.
 1. Disable the handling of `<a href="">` links, and all built-in history
    events.
 
+## Scroll Restoration
+Browsers are generally quite good at scrolling pages. When using the
+history API, previous locations on the page are restored. But this is
+not great for every app.
+
+If for example you want to always scroll to the top of the page whenever
+we navigate, you'll notice the page jumping around. This is not great
+user experience.
+
+In order to manually take control of scrolling whenever page navigation
+occurs, we can make use of `history.scrollRestoration`. Setting the
+value to `'manual'` disables all default scroll behavior, allowing us to
+take control instead.
+
+```js
+if (typeof window !== 'undefined' && window.history.scrollRestoration) {
+  window.history.scrollRestoration = 'manual'
+}
+```
+
+### Further Reading
+- https://developers.google.com/web/updates/2015/09/history-api-scroll-restoration
