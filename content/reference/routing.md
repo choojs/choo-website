@@ -343,9 +343,33 @@ Another use of hashes in urls is to map to anchors on the page. This is
 commonly used for headings in articles. So when a link is shared,
 they're navigated to the right heading in the page.
 
-Choo supports page anchors out of the box. If no matching anchor
-
 Choo supports page anchors out of the box. It tries to match anchors on
 the page first. If no matching anchor is found, Choo will try to find a
 matching route in the router. If no matching route is found, the regular
 fallback behavior occurs.
+
+### Disabling Routing
+There are cases where you might not need routing at all, for example
+when using Choo to create iframe widgets. Choo accepts options in the
+contructor to disable either hrefs or the entire history API
+integration (including hrefs).
+
+Because there is no more routing events available, you'll need to handle
+it yourself. You can manually change the value of `state.href`, before
+calling the `'render'` event. Or perhaps even simpler would be to only
+use a single route. It's up to you at this point.
+
+```js
+var choo = require('choo')
+var app = choo({ href: false }) // 1.
+```
+1. Disable the handling of `<a href="">` links.
+
+
+```js
+var choo = require('choo')
+var app = choo({ history: false }) // 1.
+```
+1. Disable the handling of `<a href="">` links, and all built-in history
+   events.
+
