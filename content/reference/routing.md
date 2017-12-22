@@ -233,3 +233,66 @@ html`
   </a>
 `
 ```
+
+### Programmatic Navigation
+Often it's needed to change routes after some event happens. For example,
+someone logs in, and we need to redirect them to the logged in page. We need
+programmatic navigation.
+
+Choo comes with several events built-in to allow you to navigate using the
+Browser's History API. The History API is a thin wrapper around a
+[Stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)). As you
+navigate, history entries are added to the stack. And when you hit the back
+button, it pops entries off the stack.
+
+- `'pushState'` - navigate to a new route, and push an entry to the history
+  stack.
+- `'replaceState'` - navigate to a new route, and replace the current entry
+  on the history stack with a new one.
+- `'popState'` - pop an entry off the history stack, and navigate to a
+  previous route.
+- `'navigate'` - emitted when any of the above events is emitted.
+
+_note:_ Anchor tags, buttons, and input submissions have slightly different
+use cases. `<a>` tags are meant for static links to pages.
+`<button>` tags are meant for conditional logic that doesn't always link to
+another page. And `<input type="submit">` tags are meant to be used to submit
+forms.
+
+```js
+var html = require('choo/html')
+var choo = require('choo')
+var app = choo()
+
+var app = choo()
+app.route('/', view)                 // 1.
+app.route('/other', other)           // 2.
+app.mount('body')
+
+function view () {                   // 3.
+  return html`
+    <body>
+      <a href="/">Navigate</a>
+    </body>
+  `
+}
+
+function other (state, emit) {       // 4.
+  return html`
+    <body>
+      <button onclick=${onclick}>
+        Go Back
+      </button>
+    </body>
+  `
+
+  function onClick () {
+    emit('popState')
+  }
+}
+```
+1. Create an initial view for `/`.
+2. Create a second view for `/other`.
+3. The initial view renders a single link to `/other`.
+4. The second view renders a button. When clicked, it sends you back to the
+   previous route.
