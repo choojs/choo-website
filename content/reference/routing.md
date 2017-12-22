@@ -291,8 +291,26 @@ function other (state, emit) {       // 4.
   }
 }
 ```
+
 1. Create an initial view for `/`.
 2. Create a second view for `/other`.
 3. The initial view renders a single link to `/other`.
 4. The second view renders a button. When clicked, it sends you back to the
    previous route.
+
+### Listening For Route Changes
+As we briefly mentioned in the previous section, we can listen to route
+changes using the `'navigate'` event.
+
+```js
+var html = require('choo/html')
+var choo = require('choo')
+var app = choo()
+
+var app = choo()
+app.use((state, emitter) => {
+  emitter.on('navigate', (route) => {
+    console.log(`Navigated to ${route}`)
+  })
+})
+```
