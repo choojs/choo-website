@@ -212,7 +212,7 @@ It's generally recommended to use soft redirects, as they interfere the least
 with the browser, and allow users to recover from an error (e.g. fix typos in a
 url).
 
-### Navigating to External Links
+## Navigating to External Links
 Some links in your app will point to other pages. In order to do this safely,
 we must add some attributes to our link tags. This is needed, so the pages we
 link to can't hijack our page.
@@ -234,7 +234,7 @@ html`
 `
 ```
 
-### Programmatic Navigation
+## Programmatic Navigation
 Often it's needed to change routes after some event happens. For example,
 someone logs in, and we need to redirect them to the logged in page. We need
 programmatic navigation.
@@ -298,7 +298,7 @@ function other (state, emit) {       // 4.
 4. The second view renders a button. When clicked, it sends you back to the
    previous route.
 
-### Listening For Route Changes
+## Listening For Route Changes
 As we briefly mentioned in the previous section, we can listen to route
 changes using the `'navigate'` event.
 
@@ -315,7 +315,7 @@ app.use((state, emitter) => {
 })
 ```
 
-### Hash Routing
+## Hash Routing
 Sometimes when you deploy a static app, you can't control the server
 part of it. Changing the route might mean the server interprets it
 differently, causing problems to occur when reloading the page.
@@ -338,7 +338,7 @@ function view (state, emit) {
 }
 ```
 
-### Page Anchors
+## Page Anchors
 Another use of hashes in urls is to map to anchors on the page. This is
 commonly used for headings in articles. So when a link is shared,
 they're navigated to the right heading in the page.
@@ -348,7 +348,7 @@ the page first. If no matching anchor is found, Choo will try to find a
 matching route in the router. If no matching route is found, the regular
 fallback behavior occurs.
 
-### Disabling Routing
+## Disabling Routing
 There are cases where you might not need routing at all, for example
 when using Choo to create iframe widgets. Choo accepts options in the
 contructor to disable either hrefs or the entire history API
