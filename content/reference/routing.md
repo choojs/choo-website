@@ -314,3 +314,38 @@ app.use((state, emitter) => {
   })
 })
 ```
+
+### Hash Routing
+Sometimes when you deploy a static app, you can't control the server
+part of it. Changing the route might mean the server interprets it
+differently, causing problems to occur when reloading the page.
+
+To work around this, Choo supports hash routing. Instead of writing a
+route as `foobar.com/bin/baz`, you can write it as `foobar.com#bin/baz`.
+
+```js
+var choo = require('choo')
+var app = choo()
+
+app.route('/', view)
+app.route('#hi', view)
+app.route('#hi/hello', view)
+
+function view (state, emit) {
+  return html`
+    <body>${state.route}</body>
+  `
+}
+```
+
+### Page Anchors
+Another use of hashes in urls is to map to anchors on the page. This is
+commonly used for headings in articles. So when a link is shared,
+they're navigated to the right heading in the page.
+
+Choo supports page anchors out of the box. If no matching anchor
+
+Choo supports page anchors out of the box. It tries to match anchors on
+the page first. If no matching anchor is found, Choo will try to find a
+matching route in the router. If no matching route is found, the regular
+fallback behavior occurs.
