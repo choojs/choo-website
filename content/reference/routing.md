@@ -131,7 +131,7 @@ function notFound () {
 ```
 
 1. We define our base view on route `/`. This is the first route that's loaded
-   when a person visits our site. It contains a single anchor tag that points
+   when someone visits our site. It contains a single anchor tag that points
    to `/uh-oh`, which is a route that doesn't exist.
 2. It's good practice to define a fallback route as `/404`. This
    helps with debugging, and is often treated specially when deploying to
@@ -148,9 +148,9 @@ often done with querystrings. Querystrings look somewhat like this:
 `?foo=bar&bin=baz`. This querystring contains two pairs: `foo=bar` and
 `bin=baz`.
 
-While using querystrings is great for urls, when you want to use them
+While using querystrings is great for URLs, when you want to use them
 in a project, you'll probably want to convert them to an Object first.
-Choo does this for you when urls are updated, and exposes the
+Choo does this for you when URLs are updated, and exposes the
 querystring pairs as `state.query`.
 
 So `?foo=bar&bin=baz` would be exposed as `state.query.foo` and
