@@ -7,11 +7,11 @@ routing is common in most applications, so making it part of the framework
 makes sense.
 
 Routing has a few parts to it. Routing must handle the browser's history API
-(e.g.  going forward & backwards). It must handle anchor tags, and programmatic
+(e.g. going forward & backwards). It must handle anchor tags, and programmatic
 actions. There's more than a few moving pieces.
 
 To perform routing, Choo uses a [Trie](https://en.wikipedia.org/wiki/Trie) data
-structure. This means that our routings is fast, and the order in which routes
+structure. This means that our routing is fast, and the order in which routes
 are added doesn't matter.
 
 _Note: It's recommended to read the [views]('/reference/views) chapter first, as
@@ -44,12 +44,12 @@ function view () {                 // 4.
    navigate to `oursite.com`, this will be the route that is enabled.
 3. Now that we have our view, we can start rendering our application.
 4. We declare our view at the bottom of the page. Thanks to [scope
-   hoisting](https://developer.mozilla.org/en-US/docs/Glossary/Hoisting), we
-   can use it higher in the code. For now it doesn't really matter what's in
-   here, just that we return some DOM node.
+   hoisting](https://developer.mozilla.org/en-US/docs/Glossary/Hoisting) it
+   doesn't matter where in the code we use it. For now it doesn't really matter
+   what's in here, just that we return some DOM node.
 
 ## Anchor tags
-There's no point in routing if you can't navigate between them. The easiest way
+There's no point in routing if you can't navigate between routes. The easiest way
 to navigate between routes is to use `<a>` tags (anchor tags). Choo picks up
 whenever a tag was clicked, and figures out which route to trigger on the
 router.
@@ -85,8 +85,8 @@ function second () {
 ```
 
 1. We define our base view on route `/`. This is the first route that's loaded
-   when a person visits our site. It contains a single anchor tag that points
-   to `/second`.
+   when someone visits our site. It contains a single anchor tag that points to
+   `/second`.
 2. We defined our second route as `/second`. This won't be shown unless someone
    navigates to `/second`. When it's rendered, it contains a single anchor tag
    that points to `/`.
@@ -94,10 +94,10 @@ function second () {
    tags to switch between views.
 
 ## Fallback routes
-Preparing for things to go wrong is a large part of programming. At some point,
-someone using an application will land on an unexpected route. It's important
-to not just crash the page, but to show something helpful to explain what just
-happened. This is where fallback routes come in.
+Preparing for things to go wrong is an important part of programming. At some
+point, someone using your application will land on an unexpected route. It's
+important to not just crash the page, but to show something helpful to explain
+what just happened. This is where fallback routes come in.
 
 ```js
 var html = require('choo/html')
@@ -133,14 +133,20 @@ function notFound () {
 1. We define our base view on route `/`. This is the first route that's loaded
    when a person visits our site. It contains a single anchor tag that points
    to `/uh-oh`, which is a route that doesn't exist.
-2. It's good practice to define a fallback route statically as `/404`. This
+2. It's good practice to define a fallback route as `/404`. This
    helps with debugging, and is often treated specially when deploying to
    production.
-3. We define our fallback route as `*`. The asterix symbol is pronounced
+3. We define our fallback route as `*`. The asterisk symbol is pronounced
    "glob". Our glob route will now handle all routes that didn't match
    anything.
 4. We mount the application on the DOM. If someone now clicks the link that's
    rendered in `/`, it will be handled by the fallback route.
+
+## Query Strings
+Sometimes you want to encode some meta information in a URL. For example some form of token, or link to who
+referred you. This is often done by using query strings.
+- what are querystrings
+- how are they done in Choo
 
 ## Dynamic routing
 Sometimes there will be pages that have the same layout, but different data.
@@ -152,7 +158,7 @@ Params are declared with the `:` syntax. For example `/foo/:bar`. This means
 that the `/foo` part is static, and `:bar` can be any value, up until the next
 slash (`/`).
 
-The value from a param, is exposed in Choo as `state.params`. So say we have
+The value from a param is exposed in Choo as `state.params`. So say we have
 the route `/foo/:bar`, and we navigate to `/foo/beep`, the value of
 `state.params.bar` will be `'beep'`.
 
@@ -322,7 +328,7 @@ app.use((state, emitter) => {            // 1.
 1. Create a new store.
 2. Listen to a navigate event.
 3. Whenever navigate is emitted, we log out what the new route is we're
-   navigating to. Route is a string here.
+   navigating to. `route` is a string here.
 
 ## Hash Routing
 Sometimes when you deploy a static app, you can't control the server
@@ -355,7 +361,8 @@ they're navigated to the right heading in the page.
 Choo supports page anchors out of the box. It tries to match anchors on
 the page first. If no matching anchor is found, Choo will try to find a
 matching route in the router. If no matching route is found, the regular
-fallback behavior occurs.
+fallback behavior occurs, such as navigating to a 404 route. See
+[Fallback Routes](#fallback-routes) for more on this.
 
 ## Disabling Routing
 There are cases where you might not need routing at all, for example
@@ -392,15 +399,13 @@ we navigate, you'll notice the page jumping around. This is not great
 user experience.
 
 In order to manually take control of scrolling whenever page navigation
-occurs, we can make use of `history.scrollRestoration`. Setting the
-value to `'manual'` disables all default scroll behavior, allowing us to
-take control instead.
+occurs, we can make use of
+[history.scrollRestoration](https://developers.google.com/web/updates/2015/09/history-api-scroll-restoration).
+Setting the value to `'manual'` disables all default scroll behavior, allowing us to take control
+instead.
 
 ```js
 if (typeof window !== 'undefined' && window.history.scrollRestoration) {
   window.history.scrollRestoration = 'manual'
 }
 ```
-
-### Further Reading
-- https://developers.google.com/web/updates/2015/09/history-api-scroll-restoration
