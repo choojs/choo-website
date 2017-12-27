@@ -142,11 +142,19 @@ function notFound () {
 4. We mount the application on the DOM. If someone now clicks the link that's
    rendered in `/`, it will be handled by the fallback route.
 
-## Query Strings
-Sometimes you want to encode some meta information in a URL. For example some form of token, or link to who
-referred you. This is often done by using query strings.
-- what are querystrings
-- how are they done in Choo
+## Querystrings
+Sometimes you want to encode some meta information in a URL. This is
+often done with querystrings. Querystrings look somewhat like this:
+`?foo=bar&bin=baz`. This querystring contains two pairs: `foo=bar` and
+`bin=baz`.
+
+While using querystrings is great for urls, when you want to use them
+in a project, you'll probably want to convert them to an Object first.
+Choo does this for you when urls are updated, and exposes the
+querystring pairs as `state.query`.
+
+So `?foo=bar&bin=baz` would be exposed as `state.query.foo` and
+`state.query.bin`.
 
 ## Dynamic routing
 Sometimes there will be pages that have the same layout, but different data.
