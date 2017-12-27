@@ -245,13 +245,17 @@ Browser's History API. The History API is a thin wrapper around a
 navigate, history entries are added to the stack. And when you hit the back
 button, it pops entries off the stack.
 
-- `'pushState'` - navigate to a new route, and push an entry to the history
-  stack.
-- `'replaceState'` - navigate to a new route, and replace the current entry
-  on the history stack with a new one.
-- `'popState'` - pop an entry off the history stack, and navigate to a
-  previous route.
+These are the events that Choo ships with:
+
+- `'pushState'` - navigate to a new route.
+- `'replaceState'` - replace the current route with a new route. This is useful
+  for things like redirects.
+- `'popState'` - navigate to a previous route.
 - `'navigate'` - emitted when any of the above events is emitted.
+
+Most of the time you'll be wanting to use the `pushState` event. `replaceState`
+and `popState` are much less common, although you might need them from time to
+time.
 
 _note:_ Anchor tags, buttons, and input submissions have slightly different
 use cases. `<a>` tags are meant for static links to pages.
@@ -308,12 +312,17 @@ var choo = require('choo')
 var app = choo()
 
 var app = choo()
-app.use((state, emitter) => {
-  emitter.on('navigate', (route) => {
-    console.log(`Navigated to ${route}`)
+app.use((state, emitter) => {            // 1.
+  emitter.on('navigate', (route) => {    // 2.
+    console.log(`Navigated to ${route}`) // 3.
   })
 })
 ```
+
+1. Create a new store.
+2. Listen to a navigate event.
+3. Whenever navigate is emitted, we log out what the new route is we're
+   navigating to. Route is a string here.
 
 ## Hash Routing
 Sometimes when you deploy a static app, you can't control the server
