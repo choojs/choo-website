@@ -90,7 +90,7 @@ that looks like:
 </form>
 ```
 
-## Handling Form Submissions
+## Handling Form Submissions As Multipart
 So far we've seen how to create basic HTML forms with validation. This is a
 great starting point, but often we'll want to control submissions using
 javascript.
@@ -251,3 +251,61 @@ you wouldn't be wrong! We wanted to show you what it's like to make requests
 using only DOM APIs. If you're planning to use this to write applications, it's
 probably best to use small abstractions to `POST` data, and convert `<form>`
 elements into `JSON`._
+
+## Uploading files
+This is a hard thing to write about. Uploading files is similar to
+`multipart/form-data`, but usually requires some extra features - such as
+overriding the native form controls, showing upload progress, and validation
+strategies. There's quite a bit to cover here.
+
+Instead of covering everything, we're going to share a few useful snippets.
+Because of time constraints, we can't quite write a full section about this yet.
+But we hope this is enough to help you on your way. Pull requests to add to
+this would be amazing!
+
+### Only allow certain filetypes
+This restricts selection to only certain filetypes too.
+```html
+<input type="file" name="pic" id="pic" accept="image/gif, image/jpeg" />
+```
+- https://stackoverflow.com/questions/181214/file-input-accept-attribute-is-it-useful
+- https://stackoverflow.com/questions/7575482/restrict-file-upload-selection-to-specific-types
+
+### Create a hidden file button
+```js
+var html = require('choo/html')
+var css = require('sheetify')
+
+css`
+  .button {
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .button-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .button-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+`
+
+var element = html`
+  <div class="button-wrapper">
+    <button class="button">Upload a file</button>
+    <input type="file" name="some-file">
+  </div>
+`
+```
