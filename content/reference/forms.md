@@ -103,7 +103,11 @@ Creating forms with Choo is almost identical to basic HTML. The main difference
 is that we create a `'submit'` event handler, and we control sending the data
 using `window.fetch()`.
 
+Let's create a form that sends data down as `'multipart/form-data`. We'll talk
+about how to submit it as JSON in the next section.
+
 ```js
+var html = require('choo/html')
 var choo = require('choo')
 
 var app = choo()
@@ -135,11 +139,15 @@ function main () {                                                    // 1.
     </body>
   `
 
-  function onsubmit (e) {                                            // 2.
-    var form = document.getElementbyId('login')                      // 3.
-    var data = new window.FormData(form)                             // 4.
-    fetch('/dashboard', { method: 'POST', body: data })              // 5.
-      .then(res => console.log('request ok \o/'))
+  function onsubmit (e) {                                              // 2.
+    e.preventDefault()                                                 // 3.
+    var form = document.querySelector('#login')                        // 4.
+    var body = new FormData(form)                                      // 5.
+    fetch('/dashboard', { method: 'POST', body })                      // 6.
+      .then(res => {
+        if (!res.ok) return console.log('oh no!')
+        console.log('request ok \o/')
+      })
       .catch(err => console.log('oh no!'))
   }
 }
@@ -149,19 +157,97 @@ function main () {                                                    // 1.
    element. Inside it we listen for the `'submit'` event by setting the
    `onsubmit=` attribute.
 2. We create a handler for the `'submit'` event. This will fire whenever a user
-   clicks the `type="submit"` button (or something similar).
-3. When the `onsubmit` function fires, we select the form element.
-4. Now that we have the `<form>` element, we can extract all values using
+   clicks the `type="submit"` button (or an equivalent action).
+3. Before we can handle the form's `'submit'` event, we need to disable the
+   form's default behavior.
+4. When the `onsubmit` function fires, we select the form element.
+5. Now that we have the `<form>` element, we can extract all values using
    `window.FormData()`. It gives us back a special object containing all the
    form data that we can directly pass to the `fetch()` api. It even works in
    all browsers!
-5. Now that we have our data, we can make a request to the server.
-
-// NOTE(yw): figure out if we can send FormData() as `application/json`. This is
-kinda the point lmao haha.
+6. Now that we have our data, we can make a request to the server. We send it as
+   an HTTP `POST` method, and attach the `body`. Depending on the result, it
+   will now either succeed or fail.
 
 __note: People used to working with DOM events might wonder why we don't use
 `e.target` instead of `document.getElementById`. Because the `'submit'` event
 can be triggered not only from the `type="submit"` button, it's safer and
 simpler to select the form by id rather than try and find the right parent node.
 Not ideal, but straight forward.__
+
+## Handling Form Submissions as JSON
+While traditional APIs might work with `multipart/form-data`, using JSON is much
+more convenient. Parsing JSON is built into almost every language, and there's a
+wide range of tools available to validate it on the server.
+
+So unless you're uploading files inside forms, it can pay off to use JSON
+instead.
+
+```js
+var html = require('choo/html')
+var choo = require('choo')
+
+var app = choo()
+app.route('/', main)
+app.mount('body')
+
+function main () {
+  return html`
+    <body>
+      <form id="login" onsubmit=${onsubmit}>
+        <label for="username">
+          username
+        </label>
+        <input id="username" name="username"
+          type="text"
+          required
+          pattern=".{1,36}"
+          title="Username must be between 1 and 36 characters long."
+        >
+        <label for="password">
+          password
+        </label>
+        <input id="password" name="password"
+          type="password"
+          required
+        >
+        <input type="submit" value="Login">
+      </form>
+    </body>
+  `
+
+  function onsubmit (e) {                                               // 1.
+    e.preventDefault()
+    var form = document.querySelector('#login')
+    var data = new FormData(form)                                       // 2.
+    var headers = new Headers({ 'Content-Type': 'application/json' })   // 3.
+    var body = {}
+    for (var pair of data.entries()) body[pair[0]] = pair[1]            // 4.
+    body = JSON.stringify(body)                                         // 5.
+    fetch('/dashboard', { method: 'POST', body, headers })              // 6.
+      .then(res => {
+        if (!res.ok) return console.log('oh no!')
+        console.log('request ok \o/')
+      })
+      .catch(err => console.log('oh no!'))
+}
+```
+
+1. We create a handler for the `'submit'` event. This will fire whenever a user
+   clicks the `type="submit"` button (or an equivalent action).
+2. We select the `<form>` element, and extract all of its data into a
+   `FormData` instance.
+3. We need to send data as `application/json`, so we create a new `Headers`
+   object that we can later attach to our `fetch()` call.
+4. We need to convert the `FormData` instance to an `Object`. This means
+   iterating over it, and copying each key-value pair.
+5. Now that we have a regular `Object`, we can convert it into JSON using
+   `JSON.stringify`.
+6. With our `body` and `headers` ready, we can send a `POST` request down to a
+   server.
+
+_Note: perhaps you're thinking to yourself this might be a lot of typing, and
+you wouldn't be wrong! We wanted to show you what it's like to make requests
+using only DOM APIs. If you're planning to use this to write applications, it's
+probably best to use small abstractions to `POST` data, and convert `<form>`
+elements into `JSON`._
