@@ -169,11 +169,11 @@ function main () {                                                    // 1.
    an HTTP `POST` method, and attach the `body`. Depending on the result, it
    will now either succeed or fail.
 
-__note: People used to working with DOM events might wonder why we don't use
-`e.target` instead of `document.getElementById`. Because the `'submit'` event
-can be triggered not only from the `type="submit"` button, it's safer and
-simpler to select the form by id rather than try and find the right parent node.
-Not ideal, but straight forward.__
+_note: People used to working with DOM events might wonder why we don't use
+`e.target` instead of `document.querySelector`. Because the `'submit'` event can
+be triggered not only from the `type="submit"` button, it's safer and simpler to
+select the form by id rather than try and find the right parent node.  Not
+ideal, but straight forward._
 
 ## Handling Form Submissions as JSON
 While traditional APIs might work with `multipart/form-data`, using JSON is much
