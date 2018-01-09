@@ -32,10 +32,9 @@ function main () {                                                    // 1.
 
   function onsubmit (e) {                                              // 2.
     e.preventDefault()
-    var form = document.querySelector('#login')                        // 3.
-    var body = new FormData(form)                                      // 4.
-    fetch('/dashboard', { method: 'POST', body })             // 5.
-      .then(res => console.log('request ok \o/'))
-      .catch(err => console.log('oh no!'))
+    var body = new window.FormData(e.currentTarget)                           // 4.
+    window.fetch('/dashboard', { method: 'POST', body })                      // 5.
+      .then(res => console.log('request ok!'))
+      .catch(err => console.log('oh no!', err))
   }
 }

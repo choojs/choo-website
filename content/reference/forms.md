@@ -140,7 +140,7 @@ function main () {                                                    // 1.
 
   function onsubmit (e) {                                              // 2.
     e.preventDefault()                                                 // 3.
-    var form = document.querySelector('#login')                        // 4.
+    var form = e.currentTarget                                         // 4.
     var body = new FormData(form)                                      // 5.
     fetch('/dashboard', { method: 'POST', body })                      // 6.
       .then(res => {
@@ -168,11 +168,13 @@ function main () {                                                    // 1.
    an HTTP `POST` method, and attach the `body`. Depending on the result, it
    will now either succeed or fail.
 
-_note: People used to working with DOM events might wonder why we don't use
-`e.target` instead of `document.querySelector`. Because the `'submit'` event can
-be triggered not only from the `type="submit"` button, it's safer and simpler to
-select the form by `id` rather than try and find the right parent node. Not
-ideal, but straight forward._
+_note: There's a difference between
+[`e.target`](https://developer.mozilla.org/en-US/docs/Web/API/Event/target) and
+[`e.currentTarget`](https://developer.mozilla.org/en-US/docs/Web/API/Event/currentTarget).
+`e.target` gives you the DOM node the event was triggered from. Where
+`e.currentTarget` gives you the event the event listener was attached to.
+Because we need a reference to the `<form>` element, using `e.currentTarget` is
+the right choice here._
 
 ## Handling Form Submissions as JSON
 While traditional APIs might work with `multipart/form-data`, using JSON is much
@@ -217,7 +219,7 @@ function main () {
 
   function onsubmit (e) {                                               // 1.
     e.preventDefault()
-    var form = document.querySelector('#login')
+    var form = e.currentTarget
     var data = new FormData(form)                                       // 2.
     var headers = new Headers({ 'Content-Type': 'application/json' })   // 3.
     var body = {}
