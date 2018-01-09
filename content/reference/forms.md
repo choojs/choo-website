@@ -13,11 +13,11 @@ setup - even if you don't end up using Choo.
 Before we dive into how forms work in Choo, let's dive into how forms work on
 pages that don't use any JavaScript. A lot of the web was designed to work
 without JavaScript, and to submit forms, you don't need any JS at all. Knowing
-what the default behavior is of forms allows us to build on top of it, rather
+what the default behavior of forms is allows us to build on top of it, rather
 than trying to rewrite functionality that's already available to us.
 
 ### The Form Element
-Forms are declared using the form tag. By themselves they don't do much, but
+Forms are declared using the `<form>` tag. By themselves they don't do much, but
 they have a few important attributes that are good to know about.
 
 The first attribute is `method=""`. This tells the form which HTTP method to
@@ -52,7 +52,7 @@ required. But together it allows you to create a wide range of input.
 
 ### Validating Input
 Forms come with a wide range of validation built in. Probably the biggest
-benefit is that it works on all platforms, with little effort.  It respects user
+benefit is that it works on all platforms, with little effort. It respects user
 settings such as font-size, and supports screen readers out of the box.
 
 To validate the form's input fields, there's a few attributes we can use:
@@ -61,8 +61,7 @@ To validate the form's input fields, there's a few attributes we can use:
   and not more than 15.
 - `required` - make sure that the field is filled in, and valid.
 - `title` - the message to display if the `pattern` attribute is invalid. This
-  is useful for users that can't read RegExes in their error messages (e.g.
-  everyone).
+  is useful for everyone that can't read RegExes in their error messages.
 
 Together these allow you to express a wide range of validation, and make sure
 your forms are filled in correctly and are accessible. Let's see what that
@@ -93,7 +92,7 @@ that looks like:
 ## Handling Form Submissions As Multipart
 So far we've seen how to create basic HTML forms with validation. This is a
 great starting point, but often we'll want to control submissions using
-javascript.
+JavaScript.
 
 Perhaps we can pre-populate some input fields. Perhaps there's input fields that
 rely on the values of other input fields. Starting off with JS from the start
@@ -163,7 +162,7 @@ function main () {                                                    // 1.
 4. When the `onsubmit` function fires, we select the form element.
 5. Now that we have the `<form>` element, we can extract all values using
    `window.FormData()`. It gives us back a special object containing all the
-   form data that we can directly pass to the `fetch()` api. It even works in
+   form data that we can directly pass to the `fetch()` API. It even works in
    all browsers!
 6. Now that we have our data, we can make a request to the server. We send it as
    an HTTP `POST` method, and attach the `body`. Depending on the result, it
@@ -172,7 +171,7 @@ function main () {                                                    // 1.
 _note: People used to working with DOM events might wonder why we don't use
 `e.target` instead of `document.querySelector`. Because the `'submit'` event can
 be triggered not only from the `type="submit"` button, it's safer and simpler to
-select the form by id rather than try and find the right parent node.  Not
+select the form by `id` rather than try and find the right parent node. Not
 ideal, but straight forward._
 
 ## Handling Form Submissions as JSON
@@ -260,8 +259,8 @@ strategies. There's quite a bit to cover here.
 
 Instead of covering everything, we're going to share a few useful snippets.
 Because of time constraints, we can't quite write a full section about this yet.
-But we hope this is enough to help you on your way. Pull requests to add to
-this would be amazing!
+But we hope this is enough to help you on your way. Contributions would be very
+welcome!
 
 ### Only allow certain filetypes
 This restricts selection to only certain filetypes too.
