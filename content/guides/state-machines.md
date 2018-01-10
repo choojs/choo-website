@@ -96,7 +96,7 @@ function stateMachine (transitions, currentState, transitionName) {
 Or in a more compact notation:
 
 ```js
-var stateMachine => (t, c, n) => t[c][n]
+var stateMachine = (t, c, n) => t[c][n]
 ```
 
 ### Class
@@ -166,4 +166,4 @@ We'll leave this as an exercise up to the reader.
 If you're looking for a solid state machine implementation, check out
 [choojs/nanostate](https://github.com/choojs/nanostate). It's similar to the
 state machine we implemented in the section above, but adds event hooks, clean
-error messages and more.
+error messages, and more.
