@@ -86,7 +86,7 @@ The "classic" version assumes we use `require()` for our application.
 var choo = require('choo')
 
 var app = choo()
-app.route('/', () => html`<body>hello world`)
+app.route('/', () => html`<body>hello world</body>`)
 
 if (!module.parent) {   // 1.
   app.mount('body')
@@ -109,7 +109,7 @@ a slightly different approach.
 var choo = require('choo')
 
 var app = choo()
-app.route('/', () => html`<body>hello world`)
+app.route('/', () => html`<body>hello world</body>`)
 
 if (typeof window !== 'undefined') {  // 1.
   app.mount('body')
