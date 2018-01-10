@@ -48,11 +48,116 @@ orange => { timer: red }
 red    => { timer: green }
 ```
 
-----
+And that's the basics. From here we could go on to add more states and
+transitions, expanding the graph.
 
-Pretty cool! Now we've given names to our events. We're called the event
-"timer",
+## State machines in JavaScript
+Let's implement the traffic light example in JavaScript. In order for this to
+work, we'll need to implement:
+- save the states & transitions in an Object
+- the core state machine algorithm
+- create a small, stateful class to hold the state
+- combine all of these to form the complete state machine.
 
-Note that "green" can never transition to "red" directly. It will always have to
-change to "orange" first. We have now successfully expressed the different
-states we can be in - and the relationships between them. Pretty neat!
+Let's dig in!
+
+### Data
+The first step is to write down our states and transitions:
+
+```js
+var transitions = {
+  green: { timer: orange },
+  orange: { timer: red },
+  red: { timer: green }
+}
+```
+
+There's only one piece of information missing now: our initial state. Let's
+define it.
+
+```js
+var initialState = 'green'
+```
+
+### Core Algorithm
+Each state links to several other states, which are referenced by transition
+names. The base algorithm for state machines is:
+- Look up the current state in the state machine data.
+- Look up the desired transition onto the current state.
+- Return the new state.
+
+```js
+function stateMachine (transitions, currentState, transitionName) {
+  var newState = transitions[currentState][transitionName]
+  return newState
+}
+```
+
+Or in a more compact notation:
+
+```js
+var stateMachine => (t, c, n) => t[c][n]
+```
+
+### Class
+While the state machine algorithm is quite simple, it requires us to keep track
+of what the current state is. This means that statemachines themselves are
+stateful. Luckily we can create a simple interface for this using classes.
+
+Let's create a class that takes an initial state + state map as the initial
+arguments, and implements one method called `.transition(transitionName)`.
+
+_note: the `class` notation here is for brevity. It's the idea that matters more
+than the implementation. So feel free to write this down however you prefer!_
+
+```js
+export class StateMachine {
+  constructor (initialState, transitions) {
+    this.state = initialState
+    this.transitions = transitions
+  }
+
+  next (transition) {
+    var nextState = this.transitions[this.state][transition]
+    if (!nextState) throw new Error(`invalid: ${this.state} -> ${transition}`)
+    this.state = nextState
+  }
+}
+```
+
+The value of `.state` is the current state we're in. If an invalid transtion
+occurs, the state machine throws an error explaining which transition was
+invalid.
+
+### Combining Data & State
+Now that we have all our individual bits, let's combine it all together:
+
+```js
+var machine = new StateMachine('green', {
+  green: { timer: orange },
+  orange: { timer: red },
+  red: { timer: green }
+})
+
+machine.transition('timer')
+console.log(machine.state) // => 'orange'
+
+machine.transition('timer')
+console.log(machine.state) // => 'red'
+
+machine.transition('timer')
+console.log(machine.state) // => 'green'
+```
+
+### Wrapping Up
+And that's all it takes to implement a fully functional state machine. As you
+can see there's not much code to it.
+
+From here there are a few more features that could be added, such as:
+- Event hooks to trigger events when certain transitions happen.
+- Combining several state machines into a larger one.
+- Automatic traversal of state machines using pathfinding algorithms.
+- Parallel state machines.
+- Nested state machines.
+
+We'll leave this as an exercise up to the reader.
