@@ -1,7 +1,7 @@
 # state machines
 If you work in software long enough, you'll have to deal with legacy codebases.
 but you'll also have had the chance to start projects from scratch. And
-eventually see your project become a legacy codebase itself.
+eventually you'll see your project become a legacy codebase itself.
 
 A big challenge in software engineering is: "how do we keep applications
 maintainable?" Because if software isn't maintainable, it can be hard to change,
@@ -54,10 +54,10 @@ transitions, expanding the graph.
 ## State machines in JavaScript
 Let's implement the traffic light example in JavaScript. In order for this to
 work, we'll need to implement:
-- save the states & transitions in an Object
-- the core state machine algorithm
-- create a small, stateful class to hold the state
-- combine all of these to form the complete state machine.
+- Saving the states & transitions in an Object
+- The core state machine algorithm
+- Creating a small, stateful class to hold the state
+- Combining all of these to form the complete state machine.
 
 Let's dig in!
 
@@ -101,7 +101,7 @@ var stateMachine = (t, c, n) => t[c][n]
 
 ### Class
 While the state machine algorithm is quite simple, it requires us to keep track
-of what the current state is. This means that statemachines themselves are
+of what the current state is. This means that state machines themselves are
 stateful. Luckily we can create a simple interface for this using classes.
 
 Let's create a class that takes an initial state + state map as the initial
