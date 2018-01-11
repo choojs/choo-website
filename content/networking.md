@@ -116,4 +116,75 @@ But `REQRES` isn't the only type of connection out there. Another common pattern
 is that of publisher-subscriber (`PUBSUB`). This pattern has a 'publisher' on
 one side, and a 'subscriber' on the other. For example: you might have a server
 that knows about events, and a client that listens to them. In the browser you
-can achieve `PUBSUB` using the Server Sent Events API.
+can achieve `PUBSUB` using the [Server Sent
+Events (SSE)](strea://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_eventsm)
+API.
+
+Let's create a small SSE client that connects to an `/sse` url. Whenever an
+event comes in, it'll emit an `'sse:message'` event.
+
+_If you're interested in a premade solution for Server Sent Events in Choo,
+check out the [choo-sse](https://github.com/yerkopalma/choo-sse) package._
+
+```js
+var choo = require('choo')
+
+var app = choo()
+app.store((state, emitter) => {
+  emitter.on('DOMContentLoaded', () => {                             // 1.
+    var source = new window.EventSource('/sse')                      // 2.
+    source.addEventListener('open', () => emitter.emit('sse:open'))  // 3.
+    window.addEventListener('beforeunload', () => source.close())    // 4.
+    source.addEventListener('message', (event) => {                  // 5.
+      try {
+        var data = JSON.parse(event.data)
+      } catch (e) {
+        return emitter.emit('sse:error', e)                          // 6.
+      }
+      emitter.emit('sse:message', data)                              // 7.
+    })
+
+    source.addEventListener('error', (event) => {                    // 8.
+      if (event.target.readyState === window.EventSource.CLOSED) {   // 9.
+        source.close()
+        emitter.emit('sse:closed')
+      } else if (event.target.readyState === window.EventSource.CONNECTING) {
+        emitter.emit('sse:reconnect')                                // 10.
+      } else {
+        emitter.emit('sse:error', event)                             // 11.
+      }
+    })
+  })
+})
+```
+
+1. Before we can create an SSE listener in the browser, we need to check if
+   we're indeed running in the browser. The best way to achieve this is to
+   listen to Choo's `'DOMContentLoaded'` event first. It's never triggered in
+   Node, and has the nice side effect of improving time till interactive in the
+   browser.
+2. Once the DOM is loaded, we create a new `EventSource` instance. We pass it a
+   URL to connect to. It makes a regular HTTP request, but keeps the connection
+   open so the server can send multiple chunks of data to the client as is
+   needed. You can mostly think of it as a fancy HTTP request.
+3. Once the connection is opened, we emit the `'sse:open'` event. There might be
+   parts of the UI that are interested in this information.
+4. When we close the page, we want all connections to be cleaned up nicely. In
+   order to do that, we listen to the browser's `window.onBeforeUnload` event,
+   and close the connection before closing the page. This prevents errors from
+   showing up in our logs.
+5. Here's the part that we came for: listening for events. `events.data` doesn't
+   require any particular formatting, but it's recommended to use JSON, just
+   like with HTTP APIs. So we should try and parse it to JSON before passing it
+   to the rest of our application.
+6. If for some reason a parsing error occurs, we should emit an `'sse:error'`
+   event.
+7. If everything has gone well, we can expose the event to the rest of our app
+   using the `sse:message` event.
+8. Connection errors can occur. The connection can be closed from the server,
+   it can be reconnecting or some other unknown error might have occured.
+9. If the connection was closed cleanly, we emit the `'sse:closed'` connection,
+   and close the whole connection.
+10. If the connection is trying to reconnect, we emit the `'sse:reconnect'`
+    event.
+11. If an actual error occured, we emit the `'sse:error'` event.
