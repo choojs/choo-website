@@ -16,7 +16,7 @@ features:
   - title: Easy to begin
     text: We think learning frameworks is boring. So instead of inventing a new language, Choo relies on vanilla JS and HTML. Combined with its small API and clean architecture this means Choo is easy to get started with, and stays that way as projects grow in scope and humans.
 ----
-support: Supported by [Dat Project](https://datproject.org/), [nearForm](https://nearform.com/), [X-Team](https://x-team.com/), [Andrew Joslin](https://twitter.com/andrewtjoslin), [Remi Nyborg](https://twitter.com/reminyborg), [Jacob Burden](https://twitter.com/jekrb), [Pavel](https://opencollective.com/pavel), and [Terkel Gjervig](https://twitter.com/terkelg)
+support: Supported by [Dat Project](https://datproject.org/), [nearForm](https://nearform.com/), [X-Team](https://x-team.com/), [code and conspire](https://codeandconspire.com/), [Andrew Joslin](https://twitter.com/andrewtjoslin), [Remi Nyborg](https://twitter.com/reminyborg), [Jacob Burden](https://twitter.com/jekrb), [Pavel](https://opencollective.com/pavel), and [Terkel Gjervig](https://twitter.com/terkelg)
 ----
 supportlink: https://opencollective.com/choo
 ----
