@@ -1,5 +1,7 @@
 title: Routing
 ----
+view: reference
+----
 excerpt:
 
 Choo is built up out of two parts: stores and views. In order to render a view,

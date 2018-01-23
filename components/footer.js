@@ -2,12 +2,12 @@ var html = require('choo/html')
 
 module.exports = footer
 
-function footer (text) {
-  if (!text) return
+function footer (props) {
+  if (!props.text) return
   return html`
-    <div class="bgc-black fc-pink p0-5">
-      <div class="p0-5">
-        ${text.map(function (line) {
+    <div class="bgc-pinker fc-pink p0-5">
+      <div class="c6 p0-5">
+        ${props.text.map(function (line) {
           return html`<div>${line}</div>`
         })}
       </div>

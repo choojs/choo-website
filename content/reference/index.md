@@ -1,3 +1,3 @@
 title: Reference
 ----
-view: reference
+view: references

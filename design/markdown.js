@@ -168,7 +168,7 @@ module.exports = `
   .markdown-body code,
   .markdown-body kbd,
   .markdown-body pre {
-    
+
   }
 
   .markdown-body hr {
@@ -266,13 +266,9 @@ module.exports = `
     font-weight: normal;
   }
 
-  .markdown-body h2:not(:first-child) {
-    margin-top: 1.5em;
-  }
-
   .markdown-body h3 {
     font-size: 1.5em;
-    color: ${options.colors.black};
+    color: ${options.colors.pinker};
     font-weight: normal;
   }
 
@@ -332,7 +328,7 @@ module.exports = `
     margin-top: 0;
     margin-bottom: 0;
     font-family: ${options.fonts.mono};
-    font-size: 1em;
+    font-size: 0.75em;
   }
 
   .markdown-body .octicon {
@@ -493,7 +489,6 @@ module.exports = `
 
   .markdown-body h2 {
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid ${options.colors.pinker};
   }
 
   .markdown-body ul,

@@ -1,5 +1,7 @@
 title: Stores
 ----
+view: reference
+----
 excerpt:
 
 Stores are Choo's data abstraction. They're meant to both hold application

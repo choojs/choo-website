@@ -1,5 +1,7 @@
 title: Forms
 ----
+view: reference
+----
 excerpt:
 
 Websites generally consist of 3 main elements: paragraph text, lists and forms.
@@ -241,6 +243,7 @@ function main () {
         console.log('request ok \o/')
       })
       .catch(err => console.log('oh no!'))
+  }
 }
 ```
 

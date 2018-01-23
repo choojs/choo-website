@@ -7,7 +7,7 @@ var options = require('./options')
 var utils = [ ]
 
 utils.push({
-  prop: 'border-radius', 
+  prop: 'border-radius',
   unit: 'rem',
   vals: [0.5, 1]
 })
@@ -50,18 +50,6 @@ utils.push({
 })
 
 utils.push({
-  prop: { vhmn: 'max-height'},
-  unit: 'vh',
-  vals: [0, 50, 100]
-})
-
-utils.push({
-  prop: { vmx: 'max-height'},
-  unit: '%',
-  vals: [0, 100]
-})
-
-utils.push({
   prop: { fwh: 'font-weight' },
   tail: ':hover',
   vals: ['normal', 'bold']
@@ -92,7 +80,8 @@ var gr8css = gr8({
   spacing: options.spacing,
   utils: utils,
   responsive: true,
-  breakpointSelector: 'class'
+  breakpointSelector: 'class',
+  zIndex: [0, 1, 2, 3, 4, 5]
 })
 
 var custom = `
@@ -121,10 +110,19 @@ var custom = `
   .copy { max-width: 40rem }
   .mxa { margin: 0 auto }
   .wmx1100 { max-width: 1100px }
+  .wmx850 { max-width: 850px }
   .lsn { list-style: none }
   ul ul { margin-left: 1rem }
   .vh90 { height: 90vh }
   .vh75 { height: 75vh }
+
+  @media (min-width: 767px) {
+    .copy-content > *:not(pre):not(h2) {
+      max-width: 83.33333333%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
 
   ::selection { background: ${options.colors.pinker}; color: ${options.colors.pink}; }
   ::-moz-selection { background: ${options.colors.pinker}; color: ${options.colors.pink}; }

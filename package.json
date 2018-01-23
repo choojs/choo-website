@@ -25,10 +25,11 @@
     "nanocomponent": "^6.5.0",
     "object-keys": "^1.0.11",
     "object-values": "^1.0.0",
+    "raf": "^3.4.0",
     "ress": "^1.2.2"
   },
   "devDependencies": {
-    "bankai": "^9.2.0",
+    "bankai": "^9.3.1",
     "brfs": "^1.4.3",
     "clean-css": "^3.4.23",
     "concat-stream": "^1.6.0",

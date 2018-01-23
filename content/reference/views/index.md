@@ -1,5 +1,7 @@
 title: Views
 ----
+view: reference
+----
 excerpt:
 
 Views are Choo's rendering abstraction. It's the part that takes the internal
@@ -108,7 +110,7 @@ listeners can in turn emit events on the event bus. To make sure that the
 application's flow is easy to reason about, views cannot attach listeners on
 the event bus themselves. This is where "data down, events up" becomes
 visible in the code: the view only has access to `emit()`, while anything that is
-declared through `app.use()`, such as a store, has access to the whole event bus 
+declared through `app.use()`, such as a store, has access to the whole event bus
 throught `emitter`. This can both send events with `emitter.emit()`, as well as
 receive them with `emitter.on()`.
 

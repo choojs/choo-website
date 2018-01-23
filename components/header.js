@@ -121,7 +121,7 @@ module.exports = class Header extends Nanocomponent {
     var el = html`
       <div
         id="header-card-${props.id}"
-        class="header-card psa t0 l0 lh1 ${classList} ${props.ignore ? 'pen' : ''}"
+        class="header-card psa t0 l0 lh1 tac ${classList} ${props.ignore ? 'pen' : ''}"
         style=${style}
         onclick=${handleClick}
       >
