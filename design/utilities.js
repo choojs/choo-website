@@ -115,10 +115,11 @@ var custom = `
   ul ul { margin-left: 1rem }
   .vh90 { height: 90vh }
   .vh75 { height: 75vh }
+  .ofct { object-fit: contain }
 
   @media (min-width: 767px) {
     .copy-content > *:not(pre):not(h2) {
-      max-width: 83.33333333%;
+      max-width: 66.666%;
       margin-left: auto;
       margin-right: auto;
     }

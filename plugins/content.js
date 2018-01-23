@@ -22,5 +22,9 @@ function store (site) {
         return view(xtend(state, { page: page }), emit)
       })
     })
+
+    // ui opts
+    state.content['/'].navPlaceholder = false
+    state.content['/reference'].navBorder = true
   }
 }

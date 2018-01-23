@@ -20,8 +20,9 @@ function view (state, emit) {
     <div>
       <div class="vh100 x xdc">
         ${header.render()}
-        <div class="py0-5 tac px1 fc-pinker">
+        <div class="py0-5 tac px1-5 fc-pinker psr">
           ${page.subtitle}
+          <div class="psa b0 r0 py0-5 px1">↓</div>
         </div>
       </div>
       <div class="w100 wmx1100 mxa">
@@ -29,6 +30,18 @@ function view (state, emit) {
         <div class="x xw">
           ${renderFeatures(page.features)}
         </div>
+        ${renderLineHoriz()}
+        <div class="p1 c12 lh1-25 sm-lh1">
+          <div class="fs2 fc-pinker">
+            <a href="https://handbook.choo.io/your-first-choo-app/" class="x xac xjb tdn">
+              <div>Start with the Handbook</div>
+              <div class="psr" style="height: 2rem; width: 2rem">
+                <img src="/assets/arrow.svg" class="h100 w100 psa t0 l0 r0 b0 ofct">
+              </div>
+            </a>
+          </div>
+        </div>
+        ${renderDemo(state.content.demo)}
         ${renderLineHoriz()}
         ${renderSupport({
           link: page.supportlink,
@@ -79,15 +92,15 @@ function renderSupport (props) {
   props = props || { }
   return html`
     <div class="c12 x xw fs2 lh1-25">
-      <div class="c12 p1">
+      <div class="c12 p1 markdown-body">
+        ${format(props.text)}
+      </div>
+      <div class="c12 p1 pt0">
         <a
           href="${props.link}"
           target="_blank"
-          class="xx c12 psr bttn tdn db p0-5 tac"
+          class="db w100 psr bttn tdn db py0-5 px2 tac"
         >Support the community</a>
-      </div>
-      <div class="c12 p1 pt0 markdown-body">
-        ${format(props.text)}
       </div>
     </div>
   `
@@ -129,17 +142,15 @@ function footnotes () {
   `
 }
 
-function demo (content) {
+function renderDemo (content) {
   return html`
-    <a
-      href="/example"
-      class="psr db tdn c12 vhmx50 sm-vmx100 oh bgc-black z2 oh fs1 sm-fs0-5"
-      style="cursor: zoom-in;"
-    >
-      <div class="markup sm-psa t0 l0 r0 p1 sm-p0-5">
-        ${format(content)}
+    <div class="px1 pb1 w100">
+      <div class="w100 h100 psr db tdn c12 vh50 oh bgc-white z2 oh fs1">
+        <div class="markup sm-psa t0 l0 r0 p1">
+          ${format(content)}
+        </div>
       </div>
-    </a>
+    </div>
   `
 }
 

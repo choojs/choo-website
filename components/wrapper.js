@@ -13,7 +13,9 @@ function wrapper (view) {
     return html`
       <body class="x xjb xdc vhmn100 ff-sans lh1-5 fs1 bgc-pink fc-black">
         ${navigation.render({
-          href: state.href || '/'
+          href: state.href || '/',
+          border: state.page.navBorder === true,
+          placeholder: state.page.navPlaceholder !== false
         })}
         ${view(state, emit)}
         ${footer({

@@ -18,8 +18,8 @@ var style = css`
   }
 
   :host .line {
+    transform: translateY(100%);
     opacity: 0;
-    transition: opacity 350ms ease-in-out;
   }
 
   :host .line-active {
@@ -33,24 +33,25 @@ module.exports = class Navigation extends Nanocomponent {
 
     this.state = {
       scrollY: 0,
-      active: false,
+      active: true,
       aboveFold: true,
+      placeholder: false,
+      border: true,
       links: [{
-        title: 'Index',
+        title: 'Home',
         url: '/'
       }, {
         title: 'Reference',
         url: '/reference'
       }, {
         title: 'Log',
-        url: '#'
-      }, {
-        title: 'Repo',
-        url: 'github'
+        url: 'https://medium.com/choojs'
       }]
     }
 
     this.frame
+
+    this.handleMouseMove = this.handleMouseMove.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
     this.renderLink = this.renderLink.bind(this)
   }
@@ -62,28 +63,32 @@ module.exports = class Navigation extends Nanocomponent {
       self.state.active = true
       self.rerender()
     }, 100)
+    window.addEventListener('mousemove', this.handleMouseMove, false)
   }
 
   unload () {
     raf.cancel(this.frame)
     this.state.active = false
     this.state.scrollY = 0
+    window.removeEventListener('mousemove', this.handleMouseMove, false)
   }
+
 
   createElement (props) {
     this.state = xtend(this.state, props)
-    console.log(props, this.state)
+    this.elementNavigation = this.renderNavigation()
     return html`
-      <div class="bgc-pink psf t0 l0 r0 x xjb py0-5 w100 ${style} ${this.state.active ? '' : 'nav-page-hide'}">
-        <div class="x px0-5">
-          ${this.state.links.map(this.renderLink)}
-        </div>
-        <div class="px1">
-          ${renderNpm()}
-        </div>
-        <div class="psa b0 l0 r0 mx1 bgc-pinker line ${this.state.aboveFold ? '' : 'line-active'}" style="height: 2px"></div>
+      <div>
+        ${this.elementNavigation}
+        ${this.state.placeholder !== false ? this.renderPlaceholder() : ''}
       </div>
     `
+  }
+
+  handleMouseMove (event) {
+    if (event.clientY < this.element.querySelector('[data-nav]').offsetHeight * 1.25) {
+      this.show()
+    }
   }
 
 
@@ -98,13 +103,23 @@ module.exports = class Navigation extends Nanocomponent {
       } else {
         this.show()
       }
-      if (scrollY < window.innerHeight * 0.9) {
+
+      if (scrollY < this.getBoundingHeight()) {
         this.aboveFold()
       } else {
         this.belowFold()
       }
+
       this.state.scrollY = scrollY
       this.frame = raf(this.handleScroll)
+    }
+  }
+
+  getBoundingHeight () {
+    if (typeof this.state.getBoundingHeight === 'function') {
+      return this.state.getBoundingHeight()
+    } else {
+      return window.innerHeight
     }
   }
 
@@ -136,11 +151,49 @@ module.exports = class Navigation extends Nanocomponent {
     }
   }
 
-  renderLink (props) {
-    var activeClass = this.state.href === props.url ? 'fc-pinker' : ''
+  renderNavigation () {
     return html`
-      <div class="px0-5">
-        <a href="${props.url}" class="tdn ${activeClass}">${props.title}</a>
+      <div class="bgc-pink psf t0 l0 r0 w100 ${style} ${this.state.active ? '' : 'nav-page-hide'}" data-nav>
+        <div class="w100 wmx1100 mxa">
+          <div class="x xjb py0-5 w100 psr">
+            <div class="x">
+              ${this.state.links.map(this.renderLink)}
+            </div>
+            <div class="x">
+              <div class="px1 psr">
+                ${renderNpm()}
+                ${renderLineVert()}
+              </div>
+              <div class="px1 fc-pinker">
+                <a href="https://github.com/choojs/choo" target="_blank" class="tdn">repo</a>
+              </div>
+            </div>
+            <div class="psa b0 l0 r0 mx1 bb2-pinker line ${!this.state.aboveFold || this.state.border ? 'line-active' : ''}"></div>
+          </div>
+        </div>
+      </div>
+    `
+  }
+
+  renderPlaceholder () {
+    return html`
+      <div class="py0-5">${raw('&nbsp;')}</div>
+    `
+  }
+
+  renderLink (props, i, arr) {
+    var activeClass
+
+    if (this.state.href === '/' && props.url === '/') {
+      activeClass = true
+    } else if (props.url !== '/' && this.state.href.indexOf(props.url) >= 0) {
+      activeClass = true
+    }
+
+    return html`
+      <div class="px1 psr ${activeClass ? 'fc-pinker' : ''}">
+        <a href="${props.url}" class="tdn">${props.title}</a>
+        ${i < arr.length - 1 ? renderLineVert() : ''}
       </div>
     `
   }
@@ -155,13 +208,18 @@ function renderNpm () {
     <input
       type="text"
       value="npm i choo"
-      class="psr fs1 db tar"
+      class="psr fs1 db tar fc-pinker"
       style="width: 5.5rem"
       onclick=${selectText}
     />
   `
 }
 
+function renderLineVert () {
+  return html`<div class="psa t0 r0 b0 br2-pinker"></div>`
+}
+
 function selectText (event) {
   event.target.select()
 }
+

@@ -12,14 +12,6 @@ function view (state, emit) {
 
   return html`
     <div>
-      <div class="bgc-pinker fc-pink vhmn50 x xdc xjb">
-        <div></div>
-        <div class="w100 wmx1100 mxa">
-          <div class="p1 fs4 lh1">
-            ${state.page.title}
-          </div>
-        </div>
-      </div>
       <div class="x xx xw w100 wmx1100 mxa">
         ${renderPages(pages)}
       </div>
