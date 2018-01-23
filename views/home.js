@@ -91,16 +91,16 @@ function renderFeatures (features) {
 function renderSupport (props) {
   props = props || { }
   return html`
-    <div class="c12 x xw fs2 lh1-25">
-      <div class="c12 p1 markdown-body">
-        ${format(props.text)}
-      </div>
-      <div class="c12 p1 pt0">
+    <div class="c12 x xw sm-fs1 sm-lh1-5 fs2 lh1-25">
+      <div class="c12 sm-c6 p1">
         <a
           href="${props.link}"
           target="_blank"
           class="db w100 psr bttn tdn db py0-5 px2 tac"
         >Support the community</a>
+      </div>
+      <div class="c12 sm-c6 p1 pt0 sm-pt1 markdown-body">
+        ${format(props.text)}
       </div>
     </div>
   `
@@ -146,7 +146,7 @@ function renderDemo (content) {
   return html`
     <div class="px1 pb1 w100">
       <div class="w100 h100 psr db tdn c12 vh50 oh bgc-white z2 oh fs1">
-        <div class="markup sm-psa t0 l0 r0 p1">
+        <div class="markup sm-psa t0 l0 r0 py0-75 px1 fs0-75">
           ${format(content)}
         </div>
       </div>

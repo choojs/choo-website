@@ -164,7 +164,7 @@ module.exports = class Navigation extends Nanocomponent {
                 ${renderNpm()}
                 ${renderLineVert()}
               </div>
-              <div class="px1 fc-pinker">
+              <div class="px1">
                 <a href="https://github.com/choojs/choo" target="_blank" class="tdn">repo</a>
               </div>
             </div>
@@ -208,7 +208,7 @@ function renderNpm () {
     <input
       type="text"
       value="npm i choo"
-      class="psr fs1 db tar fc-pinker"
+      class="psr fs1 db tar fc-black"
       style="width: 5.5rem"
       onclick=${selectText}
     />
