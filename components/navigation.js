@@ -156,15 +156,14 @@ module.exports = class Navigation extends Nanocomponent {
       <div class="bgc-pink psf t0 l0 r0 w100 ${style} ${this.state.active ? '' : 'nav-page-hide'}" data-nav>
         <div class="w100 wmx1100 mxa">
           <div class="x xjb py0-5 w100 psr">
-            <div class="x">
+            <div class="x px0-5">
               ${this.state.links.map(this.renderLink)}
             </div>
-            <div class="x">
-              <div class="px1 psr">
+            <div class="x px0-5">
+              <div class="px0-5 psr">
                 ${renderNpm()}
-                ${renderLineVert()}
               </div>
-              <div class="px1">
+              <div class="px0-5">
                 <a href="https://github.com/choojs/choo" target="_blank" class="tdn">repo</a>
               </div>
             </div>
@@ -191,9 +190,8 @@ module.exports = class Navigation extends Nanocomponent {
     }
 
     return html`
-      <div class="px1 psr ${activeClass ? 'fc-pinker' : ''}">
+      <div class="px0-5 psr ${activeClass ? 'fc-pinker' : ''}">
         <a href="${props.url}" class="tdn">${props.title}</a>
-        ${i < arr.length - 1 ? renderLineVert() : ''}
       </div>
     `
   }

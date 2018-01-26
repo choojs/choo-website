@@ -38,7 +38,6 @@ function main (state, emit) {
 }
 
 function renderPages (features) {
-  console.log(features)
   features = features || [ ]
   return features.reduce(function (result, active, i, arr) {
     result.push(html`
