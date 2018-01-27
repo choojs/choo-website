@@ -11,7 +11,7 @@ render in the client, it figures out what the DOM should look like on the
 server. The server then sends the right HTML to the client, so the first render
 happens instantly.
 
-Choo was built with both Node and the Browser in mind. One of its main feature
+Choo was built with both Node and the Browser in mind. One of its main features
 is that it works in any environment. Let's dig in to look at what that looks
 like.
 
@@ -50,7 +50,7 @@ console.log(dom)
 There hasn't been too much going on so far. Instead of rendering to the DOM,
 we've been creating strings instead. However, what's often the case with server
 rendering is that you need some data passed in for your initial rendering.
-Luckily the `.toString()` method accepts a seonc argument: `state`. Let's see
+Luckily the `.toString()` method accepts a second argument: `state`. Let's see
 how this works.
 
 ```js
@@ -106,7 +106,8 @@ Because the details of `import` are different from `require`, using it requires
 a slightly different approach.
 
 ```js
-var choo = require('choo')
+import html from 'choo/html'
+import choo from 'choo'
 
 var app = choo()
 app.route('/', () => html`<body>hello world</body>`)
