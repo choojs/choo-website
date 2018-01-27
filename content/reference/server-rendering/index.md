@@ -1,4 +1,12 @@
-# Server Rendering
+title: Server Rendering
+----
+view: reference
+----
+excerpt:
+Server rendering is an excellent way to speed up the load time of your pages.
+This section shows how to effectively render Choo apps in Node.
+----
+text:
 Building fast applications is a tricky challenge. Usually you want to optimize
 the [time to first
 render](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/).
