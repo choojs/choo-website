@@ -1,6 +1,6 @@
 title: Networking
 ----
-view: reference
+view: docs
 ----
 excerpt:
 
