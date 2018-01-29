@@ -144,6 +144,11 @@ can achieve `PUBSUB` using the [Server Sent
 Events (SSE)](strea://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_eventsm)
 API.
 
+It's also useful to know that Server Sent Events are supported by HTTP/2. This
+means that unlike some other messaging protocols, Server Sent Events seamlessly
+integrate with HTTP/2's socket multiplexing (which means things become more
+efficient).
+
 Let's create a small SSE client that connects to an `/sse` url. Whenever an
 event comes in, it'll emit an `'sse:message'` event.
 
@@ -212,3 +217,21 @@ app.store((state, emitter) => {
 10. If the connection is trying to reconnect, we emit the `'sse:reconnect'`
     event.
 11. If an actual error occured, we emit the `'sse:error'` event.
+
+## Websockets
+Server Sent Events allow you to create a `PUBSUB` channel that sends data from
+one side to the other. But what if we want to send and receive events on both
+sides? This is where WebSockets (WS) come in.
+
+At the moment WebSockets don't integrate with HTTP/2, so in order to use them
+both the server and client will need to negotiate a new handshake and establish
+a new connection.
+
+Let's take a look at how to integrate websockets with Choo.
+
+_If you're interested in a premade solution for Server Sent Events in Choo,
+check out the [choo-websocket](https://github.com/yerkopalma/choo-websocket)
+package._
+
+```js
+```
