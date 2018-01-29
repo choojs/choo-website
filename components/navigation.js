@@ -205,6 +205,7 @@ function renderNpm () {
   return html`
     <input
       type="text"
+      readonly
       value="npm i choo"
       class="psr fs1 db tar fc-black"
       style="width: 5.5rem"
