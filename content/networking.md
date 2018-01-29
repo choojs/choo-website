@@ -107,6 +107,30 @@ up the arguments that are passed to `fetch()`. Perhaps you might even want to
 create an abstraction to reduce boilerplate. Whichever way you go: the
 abstraction is going to be similar.
 
+## Import
+`import` is a new keyword added to JavaScript in ES6. It allows loading
+JavaScript from inside JavaScript - allowing the browser to cache responses
+along the way.
+
+There are two types of `import` statements: static and dynamic. Static `import`
+should only be used at the top of files and blocks all other JavaScript
+executing until it's been resolved.
+
+Dynamic `import()` can be used anywhere in the code, and returns a Promise which
+eventually returns the module you were requesting. Unlike static `import()` it
+doesn't block any code execution. This is great for splitting off parts of code
+that don't need to be loaded right off the start - the less code that needs
+executing, the faster your site will load!
+
+To load JavaScript that can execute static `import` in the browser, we must set
+`type="module"` attribute on the script tag: `<script src="/script.js"
+type="module">`.
+
+_note: You might have noticed that Choo doesn't default to using `import` yet.
+Support for `import` is still experimental in Node, and only partially rolled
+out in browsers. Once `import` is stable, we'll switch over in a semver major
+release._
+
 ## Server Sent Events
 So far we've only covered doing request-response (`REQRES`) using HTTP. You send
 a request, and you always expect a response. If you don't get a response, it's
