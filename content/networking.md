@@ -16,6 +16,9 @@ so) different ways to access the network:
 - Using the WebSocket API.
 - Using WebRTC.
 
+In this section we'll go over some of the most common networking protocols, and
+show how to use these efficiently.
+
 ## HTTP Requests
 Most of the browser's networking happens through HTTP requests. HTTP is a
 data protocol on top of a TCP stream. Knowing that HTTP is based on TCP is
@@ -106,30 +109,6 @@ And that's about it. Depending on the application's requirements, you can switch
 up the arguments that are passed to `fetch()`. Perhaps you might even want to
 create an abstraction to reduce boilerplate. Whichever way you go: the
 abstraction is going to be similar.
-
-## Import
-`import` is a new keyword added to JavaScript in ES6. It allows loading
-JavaScript from inside JavaScript - allowing the browser to cache responses
-along the way.
-
-There are two types of `import` statements: static and dynamic. Static `import`
-should only be used at the top of files and blocks all other JavaScript
-executing until it's been resolved.
-
-Dynamic `import()` can be used anywhere in the code, and returns a Promise which
-eventually returns the module you were requesting. Unlike static `import()` it
-doesn't block any code execution. This is great for splitting off parts of code
-that don't need to be loaded right off the start - the less code that needs
-executing, the faster your site will load!
-
-To load JavaScript that can execute static `import` in the browser, we must set
-`type="module"` attribute on the script tag: `<script src="/script.js"
-type="module">`.
-
-_note: You might have noticed that Choo doesn't default to using `import` yet.
-Support for `import` is still experimental in Node, and only partially rolled
-out in browsers. Once `import` is stable, we'll switch over in a semver major
-release._
 
 ## Server Sent Events
 So far we've only covered doing request-response (`REQRES`) using HTTP. You send
@@ -227,11 +206,75 @@ At the moment WebSockets don't integrate with HTTP/2, so in order to use them
 both the server and client will need to negotiate a new handshake and establish
 a new connection.
 
-Let's take a look at how to integrate websockets with Choo.
+When using websockets, you'll see that WebSocket urls usually start with either
+`ws://` or `wss://`. The difference between these two is that `wss://` is
+secure, where `ws://` is not. If possible, try and use `wss://`.
+
+Let's take a look at how to write a store that allows us to send and receive
+messages from a websocket!
 
 _If you're interested in a premade solution for Server Sent Events in Choo,
 check out the [choo-websocket](https://github.com/yerkopalma/choo-websocket)
 package._
 
 ```js
+var choo = require('choo')
+var app = choo()
+app.store((state, emitter) => {
+  emitter.on('DOMContentLoaded', () => {                       // 1.
+    var socket = new window.WebSocket('wss://localhost:8080')  // 2.
+    state.websocket = { open: false }                          // 3.
+
+    socket.addEventListener('open', (event) => {               // 4.
+      emitter.on('ws:send', (data) => socket.send(data))       // 5.
+      state.websocket.open = true                              // 6.
+      emitter.emit('ws:open')                                  // 7.
+    })
+
+    socket.addEventListener('message', (event) => {            // 8.
+      emitter.emit('ws:message', event)
+    })
+
+    socket.addEventListener('close', (event) => {              // 9.
+      state.websocket.open = false
+      emitter.emit('ws:close')
+    })
+
+    socket.addEventListener('error', (err) => {              // 10.
+      emitter.emit('ws:error', err)
+    })
+  })
+})
 ```
+
+1. Before anything, we want to make sure that the DOM is available. If the page
+   is still loading, there's a good chance that the network is still saturated -
+   so it makes a lot of sense.
+2. Now that the DOM is ready, we want to open up a new socket. We point it to
+   our local server, using a secure connection. We get a websocket instance back
+   which we name `socket`.
+3. When we first receive access to a websocket instance, the connection itself
+   will not be ready yet. Parts of our user interface might want to reflect
+   this, so until the socket is `open`, we set `state.websocket.open` to
+   `false`.
+4. Before we can start sending events, we need to wait for the socket to finish
+   initializing. This is done by listening for the `'open'` event.
+5. Once the websocket is ready, we can start listening for `'ws:send'` events.
+   This is then used to call `socket.send()` and pass any data down. It's
+   important to start listening for events before we emit the `'ws:open'` event.
+   Otherwise we might lose events if they were sent in the same tick as
+   `'ws:open'`.
+6. We can now tell the system that our websocket is ready to be used, so we
+   update our state before that.
+7. Now that we're reading to start listening for events, we can emit `'ws:open`.
+8. Whenever we receive a `'message'` event, we emit the `'ws:message'` event.
+9. Whenever the connection closes, we set `state.websocket.open` to `false` and
+   we emit the `'ws:close'` event.
+10. Whenever we receive an `'error'` event, we emit the `'ws:error'` event.
+
+## Wrapping Up
+And that's it! We hope you've now read enough to get started with network
+protocols in the browser! There's much more to explore, and as the web evolves
+so will the protocols. But we're confident that interfacing Choo with the
+browser's networking protocols will always remain straight forward and
+convenient. Happy (network) hacking!
