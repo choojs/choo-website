@@ -1,4 +1,13 @@
-# Networking
+title: Networking
+----
+view: reference
+----
+excerpt:
+
+Connecting to the network is essential for applications. This section is all
+about the browser's network APIs, and how to use them in Choo.
+----
+text:
 A fun way to think about browsers, is as a standardized Virtual Machine (VM)
 that includes high-level APIs to do networking, sandboxed code execution and
 disk access. It runs on almost every platform, behaves similarly everywhere, and
@@ -9,7 +18,7 @@ so) different ways to access the network:
 
 - By navigating to a new page
 - Through `<script>`, `<link>`, & other tags.
-- Using `prefetch` headers.
+- Using `preload` headers.
 - Using `new XMLHTTPRequest()`, `window.fetch()`, & `navigator.sendBeacon()`.
 - Using (dynamic) `import()`.
 - Using the Server Sent Events API.
@@ -41,7 +50,7 @@ The browser has several ways of performing HTTP requests.
   document's head. This will trigger requests for more resources, which in turn
   can request even more resources. There's also the `<a>` and `<img>` tags,
   which act similarly.
-- __Using `prefetch` headers.__ When a browser page is loaded, the server can
+- __Using `preload` headers.__ When a browser page is loaded, the server can
   set headers for additional resources that should be loaded. The browser then
   proceeds to request those.
 - __Using `new XMLHTTPRequest()` & `window.fetch()`:__ In order to make dynamic
@@ -78,13 +87,12 @@ app.store((state, emitter) => {
   emitter.on('fetch-tweets', (username) => {   // 1.
     window.fetch(`/${username}/tweets`)        // 2.
       .then((res) => res.json())               // 3.
-      .then((json) => JSON.parse(json))        // 4.
       .then((data) => {
-        state.tweets.concat(data)              // 5.
+        state.tweets.concat(data)              // 4.
         emitter.emit('render')
       })
       .catch((err) => {
-        emitter.emit('error', err)             // 6.
+        emitter.emit('error', err)             // 5.
       })
   })
 })
@@ -94,12 +102,10 @@ app.store((state, emitter) => {
 2. When the listener is called, we create a new `fetch()` call to a JSON
    endpoint. The url is dynamically created based on the username that's passed.
 3. We know the response will be JSON, so we try and convert the binary blob to
-   JSON.
-4. Now that it's a JSON blob, we want to convert it to a JavaScript Object. We
-   do this using `JSON.parse()`.
-5. Now that we have our JavaScript Object, we add the new tweets to our existing
-   list of tweets. Once the new data is set, we emit the `'render'` event to
-   trigger a DOM update.
+   a valid JavaScript Object.
+5. Now that we have an object, we add the new tweets to our existing list of
+   tweets. Once the new data is set, we emit the `'render'` event to trigger a
+   DOM update.
 6. If any of the steps above failed for any reason, we emit the `'error'` event.
    If this was a real-world project, this is where we'd also make sure we had a
    good user-facing error, and would report the error to our analytics server.
@@ -201,6 +207,11 @@ app.store((state, emitter) => {
 Server Sent Events allow you to create a `PUBSUB` channel that sends data from
 one side to the other. But what if we want to send and receive events on both
 sides? This is where WebSockets (WS) come in.
+
+You can think of WebSockets as two `PUBSUB` channels. The browser and server can
+both emit and receive events. This is useful if you are dealing with live data
+on both the client and server - for example with a chat server, or a document
+editor.
 
 At the moment WebSockets don't integrate with HTTP/2, so in order to use them
 both the server and client will need to negotiate a new handshake and establish
