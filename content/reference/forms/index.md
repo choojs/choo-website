@@ -184,7 +184,7 @@ _note: There's a difference between
 [`e.target`](https://developer.mozilla.org/en-US/docs/Web/API/Event/target) and
 [`e.currentTarget`](https://developer.mozilla.org/en-US/docs/Web/API/Event/currentTarget).
 `e.target` gives you the DOM node the event was triggered from. Where
-`e.currentTarget` gives you the event the event listener was attached to.
+`e.currentTarget` gives you the node the event listener was attached to.
 Because we need a reference to the `<form>` element, using `e.currentTarget` is
 the right choice here._
 
