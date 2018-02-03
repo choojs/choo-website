@@ -1,6 +1,6 @@
 title: Views
 ----
-view: reference
+view: doc
 ----
 excerpt:
 

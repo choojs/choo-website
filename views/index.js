@@ -2,7 +2,7 @@ module.exports = {
   main: require('./main'),
   home: require('./home'),
   log: require('./log'),
-  references: require('./references'),
-  reference: require('./reference'),
+  docs: require('./docs'),
+  doc: require('./doc'),
   notfound: require('./notfound')
 }

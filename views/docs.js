@@ -17,22 +17,6 @@ function view (state, emit) {
       </div>
     </div>
   `
-
-  function renderPage (props, i, arr) {
-    return html`
-      <a class="xx x xjc xac fs2 bb0 p1 c12 psr tdn" href="${props.url}">
-        ${props.title}
-        ${(i < arr.length - 1)
-          ? html`
-            <div class="psa b0 l0 r0 mx1">
-              <div class="c12 bb2-black"></div>
-            </div>
-          `
-          : ''
-        }
-      </a>
-    `
-  }
 }
 
 function renderPages (features) {

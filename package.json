@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "choo": "^6.6.1",
+    "choo-devtools": "^2.3.3",
     "choo-log": "^7.2.1",
     "dom-css": "^2.1.0",
     "gr8": "^3.1.3",

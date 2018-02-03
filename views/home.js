@@ -11,7 +11,7 @@ module.exports = wrapper(view)
 
 function view (state, emit) {
   var page = state.page
-  var references = objectValues(state.content['/reference'].pages)
+  var docs = objectValues(state.content['/docs'].pages)
     .map(function (child) {
       return state.content[child.url]
     })
@@ -52,12 +52,12 @@ function view (state, emit) {
   `
 }
 
-function renderReferences (props) {
+function renderDocs (props) {
   return html`
     <div class="x xw xjb fs2 py0-75 px0-5 lh1-25">
-      <div class="fc-pinker px0-5">Reference</div>
+      <div class="fc-pinker px0-5">Docs</div>
       <div class="x xw markdown-body px0-5">
-        ${props.references.map(function (props, i, arr) {
+        ${props.docs.map(function (props, i, arr) {
           return html`<span><a href="${props.url}">${props.title}</a> ${i < arr.length - 1 ? raw(',&nbsp;') : ''}</span>`
         })}
       </div>

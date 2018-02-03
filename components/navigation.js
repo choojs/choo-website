@@ -1,6 +1,5 @@
 var Nanocomponent = require('nanocomponent')
 var raw = require('choo/html/raw')
-var assert = require('assert')
 var html = require('choo/html')
 var css = require('sheetify')
 var xtend = require('xtend')
@@ -41,8 +40,8 @@ module.exports = class Navigation extends Nanocomponent {
         title: 'Home',
         url: '/'
       }, {
-        title: 'Reference',
-        url: '/reference'
+        title: 'Docs',
+        url: '/docs'
       }, {
         title: 'Log',
         url: 'https://medium.com/choojs'
@@ -73,7 +72,6 @@ module.exports = class Navigation extends Nanocomponent {
     window.removeEventListener('mousemove', this.handleMouseMove, false)
   }
 
-
   createElement (props) {
     this.state = xtend(this.state, props)
     this.elementNavigation = this.renderNavigation()
@@ -91,12 +89,11 @@ module.exports = class Navigation extends Nanocomponent {
     }
   }
 
-
   handleScroll () {
     var scrollY = window.scrollY
     if (scrollY === this.state.scrollY) {
       this.frame = raf(this.handleScroll)
-      return 
+      return
     } else {
       if (scrollY > this.state.scrollY && scrollY > 100) {
         this.hide()
@@ -212,10 +209,6 @@ function renderNpm () {
       onclick=${selectText}
     />
   `
-}
-
-function renderLineVert () {
-  return html`<div class="psa t0 r0 b0 br2-pinker"></div>`
 }
 
 function selectText (event) {

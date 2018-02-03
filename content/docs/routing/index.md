@@ -1,6 +1,6 @@
 title: Routing
 ----
-view: reference
+view: doc
 ----
 excerpt:
 

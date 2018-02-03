@@ -1,3 +1,0 @@
-title: Reference
-----
-view: references

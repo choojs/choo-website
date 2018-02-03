@@ -6,7 +6,7 @@ var html = require('choo/html')
 module.exports = wrapper(main)
 
 function main (state, emit) {
-  var pages = objectValues(state.content['/reference'].pages).map(function (child) {
+  var pages = objectValues(state.content['/docs'].pages).map(function (child) {
     return state.content[child.url]
   })
 
@@ -31,7 +31,7 @@ function main (state, emit) {
   function renderFooter () {
     return html`
       <div class="x xw w100">
-        ${renderPages(pages)} 
+        ${renderPages(pages)}
       </div>
     `
   }

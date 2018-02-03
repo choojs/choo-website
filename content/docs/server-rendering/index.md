@@ -1,6 +1,6 @@
 title: Server Rendering
 ----
-view: reference
+view: doc
 ----
 excerpt:
 Server rendering is an excellent way to speed up the load time of your pages.

@@ -1,6 +1,6 @@
 title: Stores
 ----
-view: reference
+view: doc
 ----
 excerpt:
 

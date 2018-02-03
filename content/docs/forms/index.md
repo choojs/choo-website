@@ -1,6 +1,6 @@
 title: Forms
 ----
-view: reference
+view: doc
 ----
 excerpt:
 

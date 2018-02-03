@@ -26,7 +26,7 @@ function store (site) {
     // ui opts
     try {
       state.content['/'].navPlaceholder = false
-      state.content['/reference'].navBorder = true
+      state.content['/docs'].navBorder = true
     } catch (err) { }
   }
 }

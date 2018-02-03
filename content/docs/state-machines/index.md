@@ -1,6 +1,6 @@
 title: State Machines
 ----
-view: reference
+view: doc
 ----
 excerpt:
 State machines are a great way to manage different states in your application.

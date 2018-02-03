@@ -28,4 +28,4 @@ In Choo there are two main abstractions: stores and views.
 
 - [Follow the quickstart]('/quickstart')
 - [Read the introduction]('/introduction')
-- [Read the reference]('/reference')
+- [Read the docs]('/docs')
