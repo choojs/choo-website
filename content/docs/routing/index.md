@@ -336,9 +336,9 @@ var choo = require('choo')
 var app = choo()
 
 var app = choo()
-app.use((state, emitter) => {            // 1.
-  emitter.on('navigate', (route) => {    // 2.
-    console.log(`Navigated to ${route}`) // 3.
+app.use((state, emitter) => {                  // 1.
+  emitter.on('navigate', () => {               // 2.
+    console.log(`Navigated to ${state.route}`) // 3.
   })
 })
 ```
