@@ -26,7 +26,7 @@ module.exports = `
   }
 
   .hljs-comment {
-    color: ${options.colors.grey_25};
+    color: ${options.colors.grey_75};
   }
 
   .hljs-string,
