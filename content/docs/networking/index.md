@@ -224,7 +224,7 @@ secure, where `ws://` is not. If possible, try and use `wss://`.
 Let's take a look at how to write a store that allows us to send and receive
 messages from a websocket!
 
-_If you're interested in a premade solution for Server Sent Events in Choo,
+_If you're interested in a premade solution for WebSockets in Choo,
 check out the [choo-websocket](https://github.com/yerkopalma/choo-websocket)
 package._
 
