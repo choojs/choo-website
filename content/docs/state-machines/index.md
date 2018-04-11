@@ -74,9 +74,9 @@ The first step is to write down our states and transitions:
 
 ```js
 var transitions = {
-  green: { timer: orange },
-  orange: { timer: red },
-  red: { timer: green }
+  green: { timer: 'orange' },
+  orange: { timer: 'red' },
+  red: { timer: 'green' }
 }
 ```
 
@@ -142,9 +142,9 @@ Now that we have all our individual bits, let's combine it all together:
 
 ```js
 var machine = new StateMachine('green', {
-  green: { timer: orange },
-  orange: { timer: red },
-  red: { timer: green }
+  green: { timer: 'orange' },
+  orange: { timer: 'red' },
+  red: { timer: 'green' }
 })
 
 machine.transition('timer')
