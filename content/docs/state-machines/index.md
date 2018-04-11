@@ -119,15 +119,15 @@ _note: the `class` notation here is for brevity. It's the idea that matters more
 than the implementation. So feel free to write this down however you prefer!_
 
 ```js
-export class StateMachine {
+class StateMachine {
   constructor (initialState, transitions) {
     this.state = initialState
     this.transitions = transitions
   }
 
-  next (transition) {
+  transition (transitionName) {
     var nextState = this.transitions[this.state][transition]
-    if (!nextState) throw new Error(`invalid: ${this.state} -> ${transition}`)
+    if (!nextState) throw new Error(`invalid: ${this.state} -> ${transitionName}`)
     this.state = nextState
   }
 }
