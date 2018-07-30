@@ -24,7 +24,7 @@ To perform routing, Choo uses a [Trie](https://en.wikipedia.org/wiki/Trie) data
 structure. This means that our routing is fast, and the order in which routes
 are added doesn't matter.
 
-_Note: It's recommended to read the [views](/reference/views) chapter first, as
+_Note: It's recommended to read the [views](/docs/views) chapter first, as
 we'll assume that you're already familiar with how views work. This chapter is
 intended to give an overview of how routing works in Choo._
 
