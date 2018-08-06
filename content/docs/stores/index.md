@@ -81,7 +81,7 @@ re-render. Renders only happen when the `'render'` event is emitted.
 The biggest benefit of explicit rendering we've found is that it allows storing
 values without triggering renders. This allows every part of the application to
 store their internal bookkeeping values inside the state. In turn this makes
-debugging applications a lot easier, since there are is no private state.
+debugging applications a lot easier, since there is no private state.
 
 ```js
 var choo = require('choo')
