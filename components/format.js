@@ -1,6 +1,6 @@
 var Markdown = require('markdown-it')
 var hljs = require('highlight.js/lib/highlight')
-var raw = require('bel/raw')
+var raw = require('choo/html/raw')
 var md = Markdown({
   html: true
 })

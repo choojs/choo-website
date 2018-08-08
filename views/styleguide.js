@@ -1,6 +1,6 @@
 var objectKeys = require('object-keys')
 var html = require('choo/html')
-var raw = require('bel/raw')
+var raw = require('choo/html/raw')
 var format = require('../components/format')
 var options = require('../design/options')
 
