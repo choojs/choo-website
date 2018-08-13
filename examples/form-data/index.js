@@ -5,7 +5,7 @@ var app = choo()
 app.route('/', main)
 app.mount('body')
 
-function main () {                                                    // 1.
+function main () { // 1.
   return html`
     <body>
       <form id="login" onsubmit=${onsubmit}>
@@ -30,10 +30,10 @@ function main () {                                                    // 1.
     </body>
   `
 
-  function onsubmit (e) {                                              // 2.
+  function onsubmit (e) { // 2.
     e.preventDefault()
-    var body = new window.FormData(e.currentTarget)                           // 4.
-    window.fetch('/dashboard', { method: 'POST', body })                      // 5.
+    var body = new window.FormData(e.currentTarget) // 4.
+    window.fetch('/dashboard', { method: 'POST', body }) // 5.
       .then(res => console.log('request ok!'))
       .catch(err => console.log('oh no!', err))
   }

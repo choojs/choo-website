@@ -48,7 +48,7 @@ module.exports = class Navigation extends Nanocomponent {
       }]
     }
 
-    this.frame
+    this.frame = undefined
 
     this.handleMouseMove = this.handleMouseMove.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
@@ -93,7 +93,6 @@ module.exports = class Navigation extends Nanocomponent {
     var scrollY = window.scrollY
     if (scrollY === this.state.scrollY) {
       this.frame = raf(this.handleScroll)
-      return
     } else {
       if (scrollY > this.state.scrollY && scrollY > 100) {
         this.hide()
@@ -214,4 +213,3 @@ function renderNpm () {
 function selectText (event) {
   event.target.select()
 }
-

@@ -23,10 +23,10 @@ module.exports = class Header extends Nanocomponent {
     var cardsLen = this.state.cards.length
     this.state.cards.forEach(function (card, i) {
       var t = i / cardsLen
-      var ease = (t*t*t) * 100
-      setTimeout(function() {
+      var ease = (t * t * t) * 100
+      setTimeout(function () {
         var el = element.querySelector('#header-card-' + i)
-        card.opacity = 1 
+        card.opacity = 1
         el.style.opacity = ''
       }, ease * 250)
     })
@@ -78,7 +78,7 @@ module.exports = class Header extends Nanocomponent {
   createCard (card, i) {
     var handleCardClick = this.handleCardClick
     var s = Math.random()
-    var scale = ((s*s*s) * 7) + 1
+    var scale = ((s * s * s) * 7) + 1
     var index = 10 - Math.floor(scale)
 
     return {
@@ -146,7 +146,6 @@ module.exports = class Header extends Nanocomponent {
     this.rerender()
   }
 }
-
 
 function text () {
   return [

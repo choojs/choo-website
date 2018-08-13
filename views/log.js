@@ -1,7 +1,4 @@
 var html = require('choo/html')
-var raw = require('bel/raw')
-
-var format = require('../components/format')
 
 module.exports = view
 
@@ -20,11 +17,4 @@ function masthead (props) {
       </div>
     </div>
   `
-}
-
-function content () {
-  return html`
-    <div class="co3 c9 p1 markdown-body">
-    </div>
-`
 }

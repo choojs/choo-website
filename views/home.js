@@ -1,8 +1,6 @@
 var wrapper = require('../components/wrapper')
 var Header = require('../components/header')
 var format = require('../components/format')
-var objectValues = require('object-values')
-var raw = require('choo/html/raw')
 var html = require('choo/html')
 
 var header = new Header()
@@ -11,10 +9,6 @@ module.exports = wrapper(view)
 
 function view (state, emit) {
   var page = state.page
-  var docs = objectValues(state.content['/docs'].pages)
-    .map(function (child) {
-      return state.content[child.url]
-    })
 
   return html`
     <div>
@@ -46,19 +40,6 @@ function view (state, emit) {
         ${renderSupport({
           link: page.supportlink,
           text: page.support
-        })}
-      </div>
-    </div>
-  `
-}
-
-function renderDocs (props) {
-  return html`
-    <div class="x xw xjb fs2 py0-75 px0-5 lh1-25">
-      <div class="fc-pinker px0-5">Docs</div>
-      <div class="x xw markdown-body px0-5">
-        ${props.docs.map(function (props, i, arr) {
-          return html`<span><a href="${props.url}">${props.title}</a> ${i < arr.length - 1 ? raw(',&nbsp;') : ''}</span>`
         })}
       </div>
     </div>
@@ -126,22 +107,6 @@ function renderLineHoriz () {
   `
 }
 
-function footnotes () {
-  return html`
-    <div class="x xw c12 lh1">
-      <a href="#" class="psr tdn fc-black c6 sm-c4 p1 tac bb2-black sm-bb0-black br2-black">
-        📖 Handbook
-      </a>
-      <a href="#" class="psr tdn fc-black c6 sm-c4 p1 tac bb2-black sm-bb0-black br2-black">
-        🐦 Twitter
-      </a>
-      <a href="#" class="psr tdn fc-black c12 sm-c4 p1 tac">
-        🔎 Source
-      </a>
-    </div>
-  `
-}
-
 function renderDemo (content) {
   return html`
     <div class="px1 pb1 w100">
@@ -149,27 +114,6 @@ function renderDemo (content) {
         <div class="markup sm-psa t0 l0 r0 py0-75 px1 fs0-75">
           ${format(content)}
         </div>
-      </div>
-    </div>
-  `
-}
-
-function renderExternal () {
-  return html`
-    <div class="c12 x p0-5">
-      <div class="c6 p0-5">
-        <input
-          type="text"
-          value="npm i choo"
-          class="w100 psr fs2 bttn db tac"
-          onclick=${selectText}
-        />
-      </div>
-      <div class="c6 p0-5">
-        <a
-          href="https://github.com/choojs/choo"
-          class="w100 psr fs2 bttn db tac"
-        >Github</a>
       </div>
     </div>
   `

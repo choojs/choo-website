@@ -44,7 +44,7 @@ utils.push({
 })
 
 utils.push({
-  prop: { vhmx: 'max-height'},
+  prop: { vhmx: 'max-height' },
   unit: 'vh',
   vals: [0, 50, 100]
 })
