@@ -111,7 +111,7 @@ application's flow is easy to reason about, views cannot attach listeners on
 the event bus themselves. This is where "data down, events up" becomes
 visible in the code: the view only has access to `emit()`, while anything that is
 declared through `app.use()`, such as a store, has access to the whole event bus
-throught `emitter`. This can both send events with `emitter.emit()`, as well as
+through `emitter`. This can both send events with `emitter.emit()`, as well as
 receive them with `emitter.on()`.
 
 There are many events available on DOM elements, and most are available as
