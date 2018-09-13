@@ -50,7 +50,7 @@ function view () {                 // 4.
 
 1. We need an instance of Choo to add our routes to, so let's create that
    first.
-2. We're going to add a view on the `'/` route. This means that if people
+2. We're going to add a view on the `/` route. This means that if people
    navigate to `oursite.com`, this will be the route that is enabled.
 3. Now that we have our view, we can start rendering our application.
 4. We declare our view at the bottom of the page. Thanks to [scope
@@ -167,8 +167,8 @@ So `?foo=bar&bin=baz` would be exposed as `state.query.foo` and
 `state.query.bin`.
 
 ## Dynamic routing
-Sometimes there will be pages that have the same layout, but different data.
-For example user pages, or blog entries. This requires _dynamic routing_. In
+Sometimes there will be pages that have the same layout but different data,
+such as user pages or blog entries. This requires _dynamic routing_. In
 Choo we have two types of syntax for dynamic routing.
 
 ### Params
@@ -259,7 +259,7 @@ html`
 ```
 
 ## Programmatic Navigation
-Often it's needed to change routes after some event happens. For example,
+It's often necessary to change routes after some event happens. For example,
 someone logs in, and we need to redirect them to the logged in page. We need
 programmatic navigation.
 
