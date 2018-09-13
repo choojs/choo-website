@@ -63,10 +63,10 @@ app.use((state, emitter) => {
 ```
 
 #### Notes on DOM loading
-- If you're loading stores dynamically, the `'DOMContentLoaded` event will have
+- If you're loading stores dynamically, the `'DOMContentLoaded'` event will have
   fired by the time you start listening for it. Instead use the
   [document-ready](https://github.com/bendrucker/document-ready) package. It's
-  what Choo uses internally to provide the `DOMContentLoaded` event, so there
+  what Choo uses internally to provide the `'DOMContentLoaded'` event, so there
   is no size cost in using it.
 
 ## Updating state and rendering
