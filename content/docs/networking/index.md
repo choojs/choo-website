@@ -13,13 +13,13 @@ that includes high-level APIs to do networking, sandboxed code execution and
 disk access. It runs on almost every platform, behaves similarly everywhere, and
 is always kept backwards compatible.
 
-An important part of this machinery is networking. In the browser, there's 8 (or
+An important part of this machinery is networking. In the browser, there are 8 (or
 so) different ways to access the network:
 
 - By navigating to a new page
-- Through `<script>`, `<link>`, & other tags.
+- Through `<script>`, `<link>`, and other tags.
 - Using `preload` headers.
-- Using `new XMLHTTPRequest()`, `window.fetch()`, & `navigator.sendBeacon()`.
+- Using `new XMLHTTPRequest()`, `window.fetch()`, and `navigator.sendBeacon()`.
 - Using (dynamic) `import()`.
 - Using the Server Sent Events API.
 - Using the WebSocket API.
@@ -45,7 +45,7 @@ The browser has several ways of performing HTTP requests.
 - __Navigating to a new page:__ performs an HTTP request whenever you type in a
   url in your browser. The server then replies with some `index.html` file which
   contains more links to assets and other pages.
-- __Through `<script>`, `<link>` & other tags:__ When an `index.html` page is
+- __Through `<script>`, `<link>` and other tags:__ When an `index.html` page is
   loaded, the browser will read out all `<link>` and `<script>` tags in the
   document's head. This will trigger requests for more resources, which in turn
   can request even more resources. There's also the `<a>` and `<img>` tags,
@@ -53,23 +53,23 @@ The browser has several ways of performing HTTP requests.
 - __Using `preload` headers.__ When a browser page is loaded, the server can
   set headers for additional resources that should be loaded. The browser then
   proceeds to request those.
-- __Using `new XMLHTTPRequest()` & `window.fetch()`:__ In order to make dynamic
+- __Using `new XMLHTTPRequest()` and `window.fetch()`:__ In order to make dynamic
   requests to say, a JSON API, you can use these APIs. `XMLHTTPRequest` is the
   classic way of performing requests, but these days there's the more modern
   `window.fetch()` API. Regardless of which API you use, they produce similar
   results.
 - __Using `navigator.sendBeacon()`:__ Sometimes you want to perform an HTTP
-  Request, but want to allow more important requests to be prioritized first.
-  For example with analytics data. The `sendBeacon()`  API, allows for exactly
+  Request, but want to allow more important requests to be prioritized first,
+  such as with analytics data. The `sendBeacon()` API allows for exactly
   this: it allows you to create an HTTP POST request, but schedules it to occur
-  in the background. Even if the page is closed before the request had a chance
+  in the background, even if the page is closed before the request had a chance
   to complete.
 - __Using (dynamic) `import`:__ Scripts can request other scripts, by using the
   `import` syntax. This can either be dynamic or static - but in both cases it
   makes an HTTP request to require JavaScript.
 
 ### Fetch
-There's many ways of creating an HTTP request, but the most common one these
+There are many ways to create an HTTP request, but the most common one these
 days is using `fetch()`. In Choo you might want to trigger a request based on
 some other event coming through the EventEmitter. Let's look at a brief example
 of how to trigger a request based on a Choo event:
@@ -103,10 +103,10 @@ app.store((state, emitter) => {
    endpoint. The url is dynamically created based on the username that's passed.
 3. We know the response will be JSON, so we try and convert the binary blob to
    a valid JavaScript Object.
-5. Now that we have an object, we add the new tweets to our existing list of
+4. Now that we have an object, we add the new tweets to our existing list of
    tweets. Once the new data is set, we emit the `'render'` event to trigger a
    DOM update.
-6. If any of the steps above failed for any reason, we emit the `'error'` event.
+5. If any of the steps above failed for any reason, we emit the `'error'` event.
    If this was a real-world project, this is where we'd also make sure we had a
    good user-facing error, and would report the error to our analytics server.
    Good error handling is a very imporant aspect of production applications.
@@ -194,7 +194,7 @@ app.store((state, emitter) => {
 6. If for some reason a parsing error occurs, we should emit an `'sse:error'`
    event.
 7. If everything has gone well, we can expose the event to the rest of our app
-   using the `sse:message` event.
+   using the `'sse:message'` event.
 8. Connection errors can occur. The connection can be closed from the server,
    it can be reconnecting or some other unknown error might have occured.
 9. If the connection was closed cleanly, we emit the `'sse:closed'` connection,
@@ -277,7 +277,7 @@ app.store((state, emitter) => {
    `'ws:open'`.
 6. We can now tell the system that our websocket is ready to be used, so we
    update our state before that.
-7. Now that we're reading to start listening for events, we can emit `'ws:open`.
+7. Now that we're reading to start listening for events, we can emit `'ws:open'`.
 8. Whenever we receive a `'message'` event, we emit the `'ws:message'` event.
 9. Whenever the connection closes, we set `state.websocket.open` to `false` and
    we emit the `'ws:close'` event.
@@ -287,5 +287,5 @@ app.store((state, emitter) => {
 And that's it! We hope you've now read enough to get started with network
 protocols in the browser! There's much more to explore, and as the web evolves
 so will the protocols. But we're confident that interfacing Choo with the
-browser's networking protocols will always remain straight forward and
+browser's networking protocols will always remain straightforward and
 convenient. Happy (network) hacking!
