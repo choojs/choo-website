@@ -9,8 +9,8 @@ This section shows how to effectively render Choo apps in Node.
 text:
 Building fast applications is a tricky challenge. Usually you want to optimize
 the [time to first
-render](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/).
-And then make sure the page becomes interactive quickly. And once that's done,
+render](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/)
+and then make sure the page becomes interactive quickly. And once that's done,
 you want it to all keep feeling snappy. And then some.
 
 Server rendering is a technique to improve time to first render in applications
