@@ -10,7 +10,6 @@
   },
   "browserify": {
     "transform": [
-      "brfs",
       "hypha/transform"
     ]
   },
@@ -31,7 +30,7 @@
   },
   "devDependencies": {
     "bankai": "^9.4.1",
-    "brfs": "^1.4.3",
+    "brfs": "^2.0.0",
     "clean-css": "^3.4.23",
     "concat-stream": "^1.6.0",
     "from2-string": "^1.1.0",
