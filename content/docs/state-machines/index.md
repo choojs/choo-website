@@ -126,7 +126,7 @@ class StateMachine {
   }
 
   transition (transitionName) {
-    var nextState = this.transitions[this.state][transition]
+    var nextState = this.transitions[this.state][transitionName]
     if (!nextState) throw new Error(`invalid: ${this.state} -> ${transitionName}`)
     this.state = nextState
   }
