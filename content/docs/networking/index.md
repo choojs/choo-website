@@ -74,7 +74,7 @@ days is using `fetch()`. In Choo you might want to trigger a request based on
 some other event coming through the EventEmitter. Let's look at a brief example
 of how to trigger a request based on a Choo event:
 
-_note: we recommend going through [the stores docs](/reference/stores) first. We
+_note: we recommend going through [the stores docs](/docs/stores) first. We
 assume you'll know how Choo's event emitter model works for the next few
 sections._
 
