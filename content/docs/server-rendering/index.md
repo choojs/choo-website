@@ -88,6 +88,11 @@ both Node and the Browser. For Choo code to be isomorphic, it should render in
 the browser, and should export the `app` instance in Node so it can be called
 for server rendering.
 
+The `.mount()` method does just that; in the Browser it will mount the app on
+the selector provided to it. Whereas in Node, there is no DOM and Choo knows
+this, instead it will remember what selector was used and return the app
+instance.
+
 ### Classic
 The "classic" version assumes we use `require()` for our application.
 ```js
@@ -96,16 +101,11 @@ var choo = require('choo')
 var app = choo()
 app.route('/', () => html`<body>hello world</body>`)
 
-if (!module.parent) {   // 1.
-  app.mount('body')
-} else {                // 2.
-  module.exports = app
-}
+module.exports = app.mount('body') // 1.
 ```
 
-1. If the current file isn't required by any other file, we `mount` the app on
- the `<body>` tag.
-2. If the current file is required by some other file, we export it instead.
+1. Mount the application in the `<body>` tag (if in the Browser) and return the
+   app instance.
 
 ### Modern
 The `import` keyword is what's going to be used to load JavaScript modules in
@@ -120,14 +120,8 @@ import choo from 'choo'
 var app = choo()
 app.route('/', () => html`<body>hello world</body>`)
 
-if (typeof window !== 'undefined') {  // 1.
-  app.mount('body')
-}
-
-export app                            // 2.
+export default app.mount('body') // 1.
 ```
 
-1. We detect whether or not we're in the browser, and if we are, we render to
-   the DOM.
-2. Because the `import` spec doesn't have dynamic `exports`, we always need to
-   export our `app` instance.
+1. Mount the application in the `<body>` tag (if in the Browser) and return the
+   app instance.

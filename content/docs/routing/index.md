@@ -354,11 +354,13 @@ part of it. Changing the route might mean the server interprets it
 differently, causing problems to occur when reloading the page.
 
 To work around this, Choo supports hash routing. Instead of writing a
-route as `foobar.com/bin/baz`, you can write it as `foobar.com#bin/baz`.
+route as `foobar.com/bin/baz`, you can write it as `foobar.com#bin/baz`. To
+enable hash routing, initialize your Choo app with the `hash` option set to
+`true`.
 
 ```js
 var choo = require('choo')
-var app = choo()
+var app = choo({ hash: true }) // 1.
 
 app.route('/', view)
 app.route('#hi', view)
@@ -371,16 +373,21 @@ function view (state, emit) {
 }
 ```
 
+1. Initialize the Choo app with hash routing enabled.
+
 ## Page Anchors
 Another use of hashes in urls is to map to anchors on the page. This is
 commonly used for headings in articles. So when a link is shared,
 they're navigated to the right heading in the page.
 
-Choo supports page anchors out of the box. It tries to match anchors on
-the page first. If no matching anchor is found, Choo will try to find a
-matching route in the router. If no matching route is found, the regular
-fallback behavior occurs, such as navigating to a 404 route. See
-[Fallback Routes](#fallback-routes) for more on this.
+Choo supports page anchors out of the box. Unless hash routing is enabled, it
+will first try to match anchors on the page. If no matching anchor is found,
+or if hash routing is enabled, it will try to find a matching route in the
+router. After the new route has been rendered, Choo will once again check to see
+if a matching anchor has appeared on the page.
+
+_note: Using both hash routing and anchor links on the page is generally not
+recommended._
 
 ## Disabling Routing
 There are cases where you might not need routing at all, for example
