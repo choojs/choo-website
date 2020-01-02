@@ -133,7 +133,7 @@ class StateMachine {
 }
 ```
 
-The value of `.state` is the current state we're in. If an invalid transtion
+The value of `.state` is the current state we're in. If an invalid transition
 occurs, the state machine throws an error explaining which transition was
 invalid.
 
