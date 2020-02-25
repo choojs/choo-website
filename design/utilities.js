@@ -4,7 +4,7 @@ var fs = require('fs')
 var ress = fs.readFileSync('node_modules/ress/ress.css', 'utf8')
 var options = require('./options')
 
-var utils = [ ]
+var utils = []
 
 utils.push({
   prop: 'border-radius',

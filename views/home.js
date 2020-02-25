@@ -47,7 +47,7 @@ function view (state, emit) {
 }
 
 function renderFeatures (features) {
-  features = features || [ ]
+  features = features || []
   return features.reduce(function (result, active, i, arr) {
     result.push(html`
       <div class="c12 sm-c6 p1 psr">
@@ -66,7 +66,7 @@ function renderFeatures (features) {
     }
 
     return result
-  }, [ ])
+  }, [])
 }
 
 function renderSupport (props) {

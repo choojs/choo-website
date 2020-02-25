@@ -37,6 +37,6 @@
     "hypha": "^0.1.4",
     "minify-html-stream": "^0.3.1",
     "purify-css": "^1.1.9",
-    "standard": "^11.0.1"
+    "standard": "^14.3.1"
   }
 }

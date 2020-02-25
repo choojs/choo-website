@@ -9,7 +9,7 @@ module.exports = class Header extends Nanocomponent {
     this.state = {
       active: false,
       count: 75,
-      cards: [ ],
+      cards: [],
       featured: this.createFeatured(),
       text: text()
     }

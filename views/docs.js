@@ -20,7 +20,7 @@ function view (state, emit) {
 }
 
 function renderPages (features) {
-  features = features || [ ]
+  features = features || []
   return features.reduce(function (result, active, i, arr) {
     result.push(html`
       <a href="${active.url}" class="c12 sm-c6 p1 tdn psr">
@@ -43,7 +43,7 @@ function renderPages (features) {
     }
 
     return result
-  }, [ ])
+  }, [])
 }
 
 function lineVert () {
