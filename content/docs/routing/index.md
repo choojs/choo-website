@@ -50,7 +50,7 @@ function view () {                 // 4.
 
 1. We need an instance of Choo to add our routes to, so let's create that
    first.
-2. We're going to add a view on the `'/` route. This means that if people
+2. We're going to add a view on the `/` route. This means that if people
    navigate to `oursite.com`, this will be the route that is enabled.
 3. Now that we have our view, we can start rendering our application.
 4. We declare our view at the bottom of the page. Thanks to [scope
@@ -167,8 +167,8 @@ So `?foo=bar&bin=baz` would be exposed as `state.query.foo` and
 `state.query.bin`.
 
 ## Dynamic routing
-Sometimes there will be pages that have the same layout, but different data.
-For example user pages, or blog entries. This requires _dynamic routing_. In
+Sometimes there will be pages that have the same layout but different data,
+such as user pages or blog entries. This requires _dynamic routing_. In
 Choo we have two types of syntax for dynamic routing.
 
 ### Params
@@ -259,7 +259,7 @@ html`
 ```
 
 ## Programmatic Navigation
-Often it's needed to change routes after some event happens. For example,
+It's often necessary to change routes after some event happens. For example,
 someone logs in, and we need to redirect them to the logged in page. We need
 programmatic navigation.
 
@@ -354,11 +354,13 @@ part of it. Changing the route might mean the server interprets it
 differently, causing problems to occur when reloading the page.
 
 To work around this, Choo supports hash routing. Instead of writing a
-route as `foobar.com/bin/baz`, you can write it as `foobar.com#bin/baz`.
+route as `foobar.com/bin/baz`, you can write it as `foobar.com#bin/baz`. To
+enable hash routing, initialize your Choo app with the `hash` option set to
+`true`.
 
 ```js
 var choo = require('choo')
-var app = choo()
+var app = choo({ hash: true }) // 1.
 
 app.route('/', view)
 app.route('#hi', view)
@@ -371,16 +373,21 @@ function view (state, emit) {
 }
 ```
 
+1. Initialize the Choo app with hash routing enabled.
+
 ## Page Anchors
 Another use of hashes in urls is to map to anchors on the page. This is
 commonly used for headings in articles. So when a link is shared,
 they're navigated to the right heading in the page.
 
-Choo supports page anchors out of the box. It tries to match anchors on
-the page first. If no matching anchor is found, Choo will try to find a
-matching route in the router. If no matching route is found, the regular
-fallback behavior occurs, such as navigating to a 404 route. See
-[Fallback Routes](#fallback-routes) for more on this.
+Choo supports page anchors out of the box. Unless hash routing is enabled, it
+will first try to match anchors on the page. If no matching anchor is found,
+or if hash routing is enabled, it will try to find a matching route in the
+router. After the new route has been rendered, Choo will once again check to see
+if a matching anchor has appeared on the page.
+
+_note: Using both hash routing and anchor links on the page is generally not
+recommended._
 
 ## Disabling Routing
 There are cases where you might not need routing at all, for example

@@ -5,7 +5,7 @@ view: doc
 excerpt:
 
 Websites generally consist of 3 main elements: paragraph text, lists and forms.
-While paragraph text is generally straight forward to place on a page, lists &
+While paragraph text is generally straightforward to place on a page, lists and
 forms require some more work. This section explains everything you need to know
 to work with forms in Choo.
 ----
@@ -33,7 +33,7 @@ Forms are declared using the `<form>` tag. By themselves they don't do much, but
 they have a few important attributes that are good to know about.
 
 The first attribute is `method=""`. This tells the form which HTTP method to
-use. By default it's set to `POST`, so often it's not needed to define this.
+use. By default it's set to `POST`, so it's often not necessary to define this.
 
 The second attribute is `action=""`. This attribute tells the form where to
 redirect the page to when the submission was successful.
@@ -103,10 +103,10 @@ that looks like:
 
 ## Handling Form Submissions As Multipart
 So far we've seen how to create basic HTML forms with validation. This is a
-great starting point, but often we'll want to control submissions using
+great starting point, but we'll often want to control submissions using
 JavaScript.
 
-Perhaps we can pre-populate some input fields. Perhaps there's input fields that
+Perhaps we can pre-populate some input fields. Perhaps there are input fields that
 rely on the values of other input fields. Starting off with JS from the start
 allows us to change the behavior without needing to change the architecture.
 
@@ -114,7 +114,7 @@ Creating forms with Choo is almost identical to basic HTML. The main difference
 is that we create a `'submit'` event handler, and we control sending the data
 using `window.fetch()`.
 
-Let's create a form that sends data down as `'multipart/form-data`. We'll talk
+Let's create a form that sends data down as `multipart/form-data`. We'll talk
 about how to submit it as JSON in the next section.
 
 ```js
@@ -166,7 +166,7 @@ function main () {                                                    // 1.
 
 1. We create a basic Choo app, and a single view that renders a `<form>`
    element. Inside it we listen for the `'submit'` event by setting the
-   `onsubmit=` attribute.
+   `onsubmit` attribute.
 2. We create a handler for the `'submit'` event. This will fire whenever a user
    clicks the `type="submit"` button (or an equivalent action).
 3. Before we can handle the form's `'submit'` event, we need to disable the
