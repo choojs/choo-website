@@ -214,3 +214,72 @@ module.exports = function (state, emit) {
    showing the same title we already have, then we don't need to do anything.
    Conditional statements are less instructions on the CPU than function calls,
    so this provides us with a little speedup (and less noise).
+
+## Composable Views
+As applications grow, you'll probably find that there will be plenty of views
+that share a lot of the same layout. If you find that you're repeating the same
+layout in a lot of code, it can be beneficial to make it reusable instead.
+
+The easiest way to create a reusable view in Choo is to create a function that
+takes a view (meaning a snippet of HTML) and then inserts it into another,
+internal view. This makes it easy to create functions that construct HTML that
+you always want to keep static, such as a menu bar.  But at the same time
+construct dynamic HTML defined by whatever you pass it as an argument.
+
+Functions like these are called "composable functions" and coincidentally happen
+to be a fundamental piece of functional programming!
+
+The most common way to create reusable templates is to create a function that
+takes a view as an argument and returns a view. Inside the function the
+childView is called, and wrapped with some HTML. The end result is a nicely
+composed function that's also known as a "composable view", "higher order view",
+or "template".
+
+This might sound a little abstract. So let's create an example higher order
+view, which has a static header and footer, but takes the content as an
+argument.
+
+_note: There's not an exact term for what we're doing here. Because it's a
+pattern, and not an API the exact term also doesn't matter too much. This is
+also not at all the only way to compose functions - so don't worry too much
+about getting the terminology right - we're also just making it up as we go._
+
+```js
+var html = require('choo/html')
+var choo = require('choo')
+
+var app = choo()
+app.route('/', template(main))
+app.route('/bar', template(bar))
+app.mount('body')
+
+function template (childView) {                // 1.
+  return (state, emit) => {                    // 2.
+    return html`
+      <body>
+        <header>This is the header</header>
+        ${childView(state, emit)}
+        <footer>This is the footer</footer>
+      </body>
+    `
+  }
+}
+
+function main (state, emit) {
+  return html`
+    <h1>I'm the main view</h1>
+  `
+}
+
+function foo (state, emit) {
+  return html`
+    <h1>fooooooooooo view</h1>
+  `
+}
+```
+
+1. This is where the bulk of the action happens. We create a function named
+   `'template'` which takes a view as an argument (`childView`).
+2. The `'template'` function returns another function. This is the function
+   we'll be passing to `app.route()`. It's a valid view. When the view is
+   called, it calls the `childView`, and wraps it with DOM elements.
