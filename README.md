@@ -2,7 +2,7 @@
 
 ![screenshot](./screenshot.png)
 
-## Todo
+## Todo - An amazing website
 
 - [ ] Active links in navigation
 - [ ] Homepage interactive code editor
